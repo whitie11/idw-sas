@@ -13,6 +13,8 @@
 			<a mat-button [routerLink]="'/messages'"> Messages </a>
 			<a mat-button [routerLink]="'/admin'"> Admin </a>
 		</div>
+		<span>Current user {{username}} </span>
+		<span class="menu-spacer"></span>
 		<div>
 			<button mat-raised-button color="warn" (click)="LogOut()">Logout</button>
 		</div>

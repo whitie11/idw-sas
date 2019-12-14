@@ -14,15 +14,18 @@ export class NavComponent implements OnInit {
 
   getState: Observable<any>;
   isAuthenticated: false;
+  username: string;
 
-  constructor(private store: Store<AppState>) { 
+  constructor(private store: Store<AppState>) {
     this.getState = this.store.select(selectAuthState);
+    this.username = 'Current user';
   }
 
   ngOnInit() {
     this.getState.subscribe((state) => {
       this.isAuthenticated = state.isAuthenticated;
-  })
+      this.username = state.user.username;
+  });
 }
 
 
