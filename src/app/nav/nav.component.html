@@ -1,0 +1,21 @@
+
+<mat-toolbar color="primary" class="noMargin">
+	<mat-toolbar-row>
+      <img src= "../../assets/img/shieldLogoA.png"  >
+		<h1>SAS</h1>
+		<span class="menu-spacer"></span>
+		<div>
+			<!-- <a mat-button [routerLink]="'/login'"> Login </a> -->
+			<a mat-button [routerLink]="'/home'"> Home Page </a>
+			<a mat-button [routerLink]="'/dashboard'"> Dashboard</a>
+			<a mat-button [routerLink]="'/sas-checks'"> SAS Checks </a>
+			<a mat-button [routerLink]="'/patients'"> Patients </a>
+			<a mat-button [routerLink]="'/messages'"> Messages </a>
+			<a mat-button [routerLink]="'/admin'"> Admin </a>
+		</div>
+		<div>
+			<button mat-raised-button color="warn" (click)="LogOut()">Logout</button>
+		</div>
+	</mat-toolbar-row>
+
+</mat-toolbar>

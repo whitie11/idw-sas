@@ -1,0 +1,27 @@
+<mat-card class="login-card">
+	<mat-card-content>
+		<mat-toolbar>
+			<span>LOGIN {{x}}</span>
+		</mat-toolbar>
+		<form [formGroup]="formdata" class="my-form" (ngSubmit)="onSubmit(formdata.value)">
+			<mat-form-field class="full-width">
+				<mat-label>User Name</mat-label>
+				<input  matInput  placeholder="Email" name="email" formControlName="userName">
+         </mat-form-field>
+				<mat-form-field class="full-width">
+					<mat-label>Password</mat-label>
+					<input type="password" matInput  placeholder="Password" name="password" formControlName="password">
+         </mat-form-field>
+					<button mat-raised-button color="primary" type="submit" >Login</button>
+
+	  </form>
+	  <div *ngIf="errorMessage">
+		<div class="alert alert-danger" role="alert">
+		  {{errorMessage}}
+		</div>
+	  </div>
+	</mat-card-content>
+	<!-- <mat-card-actions>
+      <button mat-raised-button (click)="login()" color="primary">LOGIN</button>
+   </mat-card-actions> -->
+</mat-card>
