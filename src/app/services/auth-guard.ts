@@ -9,26 +9,19 @@ import { AppState, selectAuthState } from '../store/app.state';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class AuthGuardService implements CanActivate, OnInit {
-   
+export class AuthGuardService implements CanActivate {
+
     getState: Observable<any>;
     isAuthenticated: false;
 
-  constructor (
+  constructor(
     public auth: AuthService,
     public router: Router,
     private store: Store<AppState>
-    
+
   ) {
     this.getState = this.store.select(selectAuthState);
   }
-
-  ngOnInit() {
-    this.getState.subscribe((state) => {
-      this.isAuthenticated = state.isAuthenticated;
-    })
-  }
-
 
   canActivate(): boolean {
     if (!this.auth.getToken()) {
