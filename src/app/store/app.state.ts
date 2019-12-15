@@ -10,6 +10,7 @@ export const reducers = {
   auth: auth.reducer
 };
 
-export const selectAuthState = createFeatureSelector<AppState>('auth');
+export const selectAuthState = createFeatureSelector<auth.State>('auth');
 
-export const getUser = createSelector(selectAuthState, (state: AppState )
+export const getIsAuth = createSelector(selectAuthState, auth.getIsAuth);
+export const getUsername = createSelector(selectAuthState, auth.getUsernane);

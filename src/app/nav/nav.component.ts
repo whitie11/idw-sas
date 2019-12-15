@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AppState, selectAuthState } from '../store/app.state';
+import * as fromStore from '../store/app.state';
+
 import { LogOut } from '../store/actions/auth.actions';
 import { Observable } from 'rxjs';
 
@@ -10,25 +11,15 @@ import { Observable } from 'rxjs';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
 
-  getState: Observable<any>;
-  isAuthenticated: false;
-  username: string;
+  isAuthenticated: Observable<boolean>;
+  username$: Observable<string>;
 
-  constructor(private store: Store<AppState>) {
-    this.getState = this.store.select(selectAuthState);
-    this.username = 'Current user';
+  constructor(private store: Store<fromStore.AppState>) {
+    this.isAuthenticated = this.store.select(fromStore.getIsAuth);
+    this.username$ = this.store.select(fromStore.getUsername);
   }
-
-  ngOnInit() {
-    this.getState.subscribe((state) => {
-      this.isAuthenticated = state.isAuthenticated;
-      this.username = state.user.username;
-  });
-}
-
-
 
   LogOut(): void {
     this.store.dispatch(new LogOut());

@@ -14,7 +14,7 @@ import { SasChecksComponent } from './sas-checks/sas-checks.component';
 const routes: Routes = [
     {
         path: 'login',
-        component: LoginComponent
+        component: WelcomeComponent
     },
 
     {

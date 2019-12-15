@@ -1,4 +1,4 @@
-<div *ngIf="router.url !== '/login && router.url' !== '/welcome' && router.url !== '/' ">
+<div *ngIf="router.url !== '/login && router.url' !== '/welcome' && router.url !== '/' && (isAuthenticated | async)">
     <app-nav></app-nav>
 </div>
 <router-outlet></router-outlet>
