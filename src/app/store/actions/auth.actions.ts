@@ -6,6 +6,7 @@ export enum AuthActionTypes {
   LOGIN_SUCCESS = '[Auth] Login Success',
   LOGIN_FAILURE = '[Auth] Login Failure',
   LOGOUT = '[Auth] Logout',
+  CHANGE_WARD = '[Auth] Change Ward'
 }
 
 export class LogIn implements Action {
@@ -27,10 +28,16 @@ export class LogOut implements Action {
   readonly type = AuthActionTypes.LOGOUT;
 }
 
+export class ChangeWard implements Action {
+  readonly type = AuthActionTypes.CHANGE_WARD;
+  constructor(public payload: string) {}
+}
+
 export type All =
   | LogIn
   | LogInSuccess
   | LogInFailure
-  | LogOut;
+  | LogOut
+  | ChangeWard;
 
 

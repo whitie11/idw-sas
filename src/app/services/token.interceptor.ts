@@ -18,7 +18,7 @@ export class TokenInterceptor implements HttpInterceptor {
     const token: string = this.authService.getToken();
     request = request.clone({
       setHeaders: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
       }
     });
@@ -35,12 +35,12 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError( (response: any) => {
         if (response instanceof HttpErrorResponse && response.status === 401) {
           console.log(response);
-         localStorage.removeItem('token');
-         this.router.navigateByUrl('/log-in');
+          localStorage.removeItem('token');
+          this.router.navigateByUrl('/login');
         }
         return Observable.throw(response);
       }));
 
     }
-  
+
 }

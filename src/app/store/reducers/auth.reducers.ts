@@ -5,6 +5,7 @@ export interface State {
   isAuthenticated: boolean;
   user: User | null;
   errorMessage: string | null;
+  selectedWard: string | '';
 }
 
 export const initialState: State = {
@@ -13,7 +14,8 @@ export const initialState: State = {
     token: '',
     username: 'Not defined'
   },
-  errorMessage: null
+  errorMessage: null,
+  selectedWard: ''
 };
 
 export function reducer(state = initialState, action: All): State {
@@ -26,7 +28,8 @@ export function reducer(state = initialState, action: All): State {
           token: action.payload.token,
           username: action.payload.username
         },
-        errorMessage: null
+        errorMessage: null,
+        selectedWard: action.payload.wardName
       };
     }
     case AuthActionTypes.LOGIN_FAILURE: {
@@ -39,6 +42,12 @@ export function reducer(state = initialState, action: All): State {
     case AuthActionTypes.LOGOUT: {
       return initialState;
     }
+    case AuthActionTypes.CHANGE_WARD: {
+      return {
+        ...state,
+        selectedWard: action.payload
+      };
+    }
     default: {
       return state;
     }
@@ -47,3 +56,4 @@ export function reducer(state = initialState, action: All): State {
 
 export const getIsAuth = (state: State) => state.isAuthenticated;
 export const getUsernane = (state: State) => state.user.username;
+export const getWardName = (state: State) => state.selectedWard;

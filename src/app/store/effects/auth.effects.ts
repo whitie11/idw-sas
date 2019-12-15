@@ -32,7 +32,7 @@ export class AuthEffects {
           .pipe(
             map((res) => {
               console.log(res);
-              return new LogInSuccess({ token: res.access_token, username: payload.username });
+              return new LogInSuccess({ token: res.access_token, username: payload.username, wardName: payload.wardName });
             }),
             catchError((error) => {
               return of(new LogInFailure({ error }));

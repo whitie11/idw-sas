@@ -5,29 +5,38 @@ import { AuthService } from './auth.service';
 
 import { Store } from '@ngrx/store';
 
-import { AppState, selectAuthState } from '../store/app.state';
+import * as fromStore from '../store/app.state';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
     getState: Observable<any>;
-    isAuthenticated: false;
+    isAuthenticated$: Observable<boolean>;
 
   constructor(
     public auth: AuthService,
     public router: Router,
-    private store: Store<AppState>
-
+    private store: Store<fromStore.AppState>
   ) {
-    this.getState = this.store.select(selectAuthState);
+    this.isAuthenticated$ = this.store.select(fromStore.getIsAuth);
   }
 
   canActivate(): boolean {
-    if (!this.auth.getToken()) {
+// get observable
+const isAuth = this.store.select(fromStore.getIsAuth);
+
+// redirect to sign in page if user is not authenticated
+isAuth.subscribe(authenticated => {
+  if (!authenticated) {
+    this.router.navigateByUrl('/login');
+    return false;
+  }
+});
+if (!this.auth.getToken()) {
       this.router.navigateByUrl('/login');
       return false;
     }
-    return true;
+return true;
   }
 }

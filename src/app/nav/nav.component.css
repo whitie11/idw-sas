@@ -1,0 +1,15 @@
+.navBar {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    width: 100px;
+    font-size: 16px;
+    background-color : rgb(195, 148, 239);
+  }
+
+  .userText {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px;
+    margin: 10px;
+    
+  }
