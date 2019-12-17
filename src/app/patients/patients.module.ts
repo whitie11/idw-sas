@@ -8,6 +8,10 @@ import { AuthGuardService } from '../services/auth-guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../services/token.interceptor';
 import { PatientsRoutingModule } from './patients-routing.module';
+import { StoreModule } from '@ngrx/store';
+import * as fromPts from './patient-store/reducers/pts.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { PtsEffects } from './patient-store/effects/pts.effects';
 
 
 @NgModule({
@@ -17,6 +21,8 @@ import { PatientsRoutingModule } from './patients-routing.module';
   imports: [
     CommonModule,
     PatientsRoutingModule,
+    StoreModule.forFeature(fromPts.ptsFeatureKey, fromPts.PtReducer),
+    EffectsModule.forFeature([PtsEffects]),
   ],
   providers: [
     AuthGuardService,

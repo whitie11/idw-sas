@@ -29,6 +29,8 @@ import { AuthGuardService as AuthGuard } from './services/auth-guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SasChecksComponent } from './sas-checks/sas-checks.component';
 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment'; // Angular CLI environment
 
 @NgModule({
   declarations: [
@@ -53,7 +55,7 @@ import { SasChecksComponent } from './sas-checks/sas-checks.component';
     ReactiveFormsModule,
     EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(reducers, {}),
-
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [
     AuthService,
@@ -68,7 +70,7 @@ import { SasChecksComponent } from './sas-checks/sas-checks.component';
       useClass: ErrorInterceptor,
       multi: true
     }
-  
+
   ],
   bootstrap: [AppComponent]
 })
