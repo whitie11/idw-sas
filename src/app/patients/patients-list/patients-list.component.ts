@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getPts, selectPtsState, PtsState, getWardName } from '../patient-store/pts.state';
+import { getTest, selectPtsState, PtsState, getWardName, State} from '../patient-store/pts.state';
 import { Observable } from 'rxjs';
 import { LoadPts } from '../patient-store/actions/pts.actions';
+// import { getTest } from '../patient-store/reducers/pts.reducer';
 // import { getWardName } from 'src/app/store/reducers/auth.reducers';
 
 @Component({
@@ -17,12 +18,12 @@ export class PatientsListComponent implements OnInit {
   selectedWardName: string;
 
 
-  constructor(private store: Store<PtsState>) { }
+  constructor(private store: Store<State>) { }
 
   ngOnInit() {
-    this.test = this.store.select(getPts);
+    this.test = this.store.select(getTest);
     this.wardName$ = this.store.select(getWardName);
-
+    console.log('Ward name = ' + this.wardName$);
     this.wardName$.subscribe((ward) => {
       this.selectedWardName = ward;
     });

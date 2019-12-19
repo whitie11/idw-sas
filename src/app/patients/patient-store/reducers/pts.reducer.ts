@@ -1,6 +1,7 @@
 
 import { PatientActionTypes, All } from '../actions/pts.actions';
 import { Patient } from '../../../models/patient';
+
 export const ptsFeatureKey = 'pts';
 
 export interface State {
@@ -8,7 +9,7 @@ export interface State {
   patients: Patient[];
 }
 
-export const initialState: State = {
+const initialState: State = {
   test: 'Hello',
   patients: []
 };
@@ -34,5 +35,9 @@ export function PtReducer(state = initialState, action: All): State {
   }
 }
 
+
 export const getTest = (state: State) => state.test;
+export const getPatients = (state: State) => state.patients;
+
+
 

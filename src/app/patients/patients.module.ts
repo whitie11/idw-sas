@@ -21,7 +21,7 @@ import { PtsEffects } from './patient-store/effects/pts.effects';
   imports: [
     CommonModule,
     PatientsRoutingModule,
-    StoreModule.forFeature(fromPts.ptsFeatureKey, fromPts.PtReducer),
+    StoreModule.forFeature('pts', fromPts.PtReducer),
     EffectsModule.forFeature([PtsEffects]),
   ],
   providers: [

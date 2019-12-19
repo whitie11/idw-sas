@@ -8,7 +8,7 @@ export interface State {
   selectedWard: string | '';
 }
 
-export const initialState: State = {
+const initialState: State = {
   isAuthenticated: false,
   user: {
     token: '',
