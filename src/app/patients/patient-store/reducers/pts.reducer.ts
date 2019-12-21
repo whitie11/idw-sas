@@ -11,7 +11,23 @@ export interface State {
 
 const initialState: State = {
   test: 'Hello',
-  patients: []
+  patients: [
+    {
+      PatientId: 1,
+      FirstName: 'Fred',
+      MidName: '',
+      LastName: '',
+      NHSno: '',
+      Birthdate: null,
+      WardName: '',
+      Leave: null,
+      LastSeen:  null,
+
+
+
+
+    }
+  ]
 };
 
 export function PtReducer(state = initialState, action: All): State {

@@ -5,6 +5,7 @@ import * as fromStore from '../store/app.state';
 
 import { LogOut, ChangeWard } from '../store/actions/auth.actions';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -25,7 +26,7 @@ export class NavComponent {
   ];
 
 
-  constructor(private store: Store<fromStore.AppState>) {
+  constructor( public router: Router, private store: Store<fromStore.AppState>) {
     this.isAuthenticated = this.store.select(fromStore.getIsAuth);
     this.username$ = this.store.select(fromStore.getUsername);
     this.selectedWardName$ = this.store.select(fromStore.getWardName);
@@ -41,7 +42,15 @@ export class NavComponent {
   }
 
   onWardChanged() {
+
     console.log(this.selectedWard);
     this.store.dispatch(new ChangeWard(this.selectedWard));
+
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+       console.log(this.selectedWard);
+       return false;
+ };
+    this.router.navigated = false;
+    this.router.navigateByUrl(this.router.url);
   }
 }
