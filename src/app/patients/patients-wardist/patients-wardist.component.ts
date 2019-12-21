@@ -7,7 +7,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { getTest, selectPtsState, PtsState, getWardName, State, getPtsWard } from '../patient-store/pts.state';
 import { Observable } from 'rxjs';
-import { LoadPts } from '../patient-store/actions/pts.actions';
+import { LoadPts, SelectPt } from '../patient-store/actions/pts.actions';
 import { Patient } from 'src/app/models/patient';
 
 import * as moment from 'moment';
@@ -117,7 +117,9 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
   }
 
   getRecord(pt: Patient) {
-   // this.router.navigateByUrl('/patients/' + pt.PatientId.toString());
-    this.router.navigate(['/patients/details'], { queryParams: pt });
+    this.store.dispatch(new SelectPt(pt));
+
+    this.router.navigateByUrl('/patients/details');
+   // this.router.navigate(['/patients/details'], { queryParams: pt });
   }
 }

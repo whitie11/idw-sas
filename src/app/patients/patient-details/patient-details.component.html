@@ -1,1 +1,4 @@
 <p>patient-details works!</p>
+<div *ngIf="selectedPt$ | async; let pt">
+    <h3> {{pt.FirstName}}</h3>
+  </div>

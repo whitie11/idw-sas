@@ -7,6 +7,7 @@ export const ptsFeatureKey = 'pts';
 export interface State {
   test: string;
   patients: Patient[];
+  selectedPt: Patient;
 }
 
 const initialState: State = {
@@ -23,18 +24,18 @@ const initialState: State = {
       Leave: null,
       LastSeen:  null,
     },
-    // {
-    //   PatientId: 2,
-    //   FirstName: 'Joe',
-    //   MidName: '',
-    //   LastName: '',
-    //   NHSno: '',
-    //   Birthdate: null,
-    //   WardName: '',
-    //   Leave: null,
-    //   LastSeen:  null,
-    // }
-  ]
+  ],
+  selectedPt:  {
+    PatientId: null,
+    FirstName: '',
+    MidName: '',
+    LastName: '',
+    NHSno: '',
+    Birthdate: null,
+    WardName: '',
+    Leave: null,
+    LastSeen:  null,
+  }
 };
 
 export function PtReducer(state = initialState, action: All): State {
@@ -51,6 +52,13 @@ export function PtReducer(state = initialState, action: All): State {
 
       };
     }
+    case PatientActionTypes.SELECT_PT: {
+      return {
+        ...state,
+        selectedPt: action.payload
+      };
+    }
+
 
     default: {
       return state;
@@ -61,6 +69,7 @@ export function PtReducer(state = initialState, action: All): State {
 
 export const getTest = (state: State) => state.test;
 export const getPatients = (state: State) => state.patients;
+export const getSelectePt = (state: State) => state.selectedPt;
 
 
 
