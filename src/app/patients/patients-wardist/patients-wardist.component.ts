@@ -11,49 +11,13 @@ import { LoadPts } from '../patient-store/actions/pts.actions';
 import { Patient } from 'src/app/models/patient';
 
 import * as moment from 'moment';
-
-export interface PatientsWardistItem {
-  FirstName: string;
-  PatientId: number;
-}
-
-const INITIAL_DATA = [
-  {
-    PatientId: 1,
-    FirstName: 'Jack',
-    MidName: '',
-    LastName: '',
-    NHSno: '',
-    Birthdate: null,
-    WardName: '',
-    Leave: null,
-    LastSeen: null,
-  },
-  {
-    PatientId: 2,
-    FirstName: 'Charlie',
-    MidName: '',
-    LastName: '',
-    NHSno: '',
-    Birthdate: null,
-    WardName: '',
-    Leave: null,
-    LastSeen: null,
-
-
-
-
-  }
-];
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patients-wardist',
   templateUrl: './patients-wardist.component.html',
   styleUrls: ['./patients-wardist.component.css']
 })
-
-
-
 
 export class PatientsWardistComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
@@ -63,9 +27,10 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
   wardName$: Observable<string>;
   selectedWardName: string;
   wardList$: Observable<Patient[]>;
-  dataSource = new MatTableDataSource(INITIAL_DATA);
-
-  constructor(private store: Store<State>) {
+  wardList: Patient[];
+  dataSource = new MatTableDataSource(this.wardList);
+  selectedPatient: Patient;
+  constructor(private store: Store<State>, private router: Router) {
 
   }
 
@@ -94,9 +59,8 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
     this.wardName$.subscribe((ward) => {
       this.selectedWardName = ward;
       this.store.dispatch(new LoadPts(ward));
-
-
     });
+
     this.wardList$ = this.store.select(getPtsWard);
 
     this.wardList$.subscribe((list) => {
@@ -150,5 +114,10 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
       }
 
     } else { return 'White'; }
+  }
+
+  getRecord(pt: Patient) {
+   // this.router.navigateByUrl('/patients/' + pt.PatientId.toString());
+    this.router.navigate(['/patients/details'], { queryParams: pt });
   }
 }

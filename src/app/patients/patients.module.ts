@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PatientDetailsComponent } from './patient-details/patient-details.component';
 
 import { AuthGuardService } from '../services/auth-guard';
 
@@ -12,14 +11,13 @@ import * as fromPts from './patient-store/reducers/pts.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { PtsEffects } from './patient-store/effects/pts.effects';
 import { PatientsWardistComponent } from './patients-wardist/patients-wardist.component';
-// import { MatTableModule } from '@angular/material/table';
-// import { MatPaginatorModule } from '@angular/material/paginator';
-// import { MatSortModule } from '@angular/material/sort';
+import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { MaterialModule } from '../modules/material.module';
 
 @NgModule({
   declarations: [
-     PatientsWardistComponent
+     PatientsWardistComponent,
+     PatientDetailsComponent,
     ],
   imports: [
     CommonModule,

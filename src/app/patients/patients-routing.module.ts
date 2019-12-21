@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PatientsWardistComponent } from './patients-wardist/patients-wardist.component';
 
 import { AuthGuardService } from '../services/auth-guard';
+import { PatientDetailsComponent } from './patient-details/patient-details.component';
 
 const routes: Routes = [
     {
@@ -14,11 +15,10 @@ const routes: Routes = [
     //     path: 'patient-list',
     //     component: PatientsListComponent, canActivate: [AuthGuardService]
     // },
-    // {
-    //     path: ':id',
-    //     loadChildren: './patient-details/patient-details.module#PatientDetailsModule'
-    //    // component: PatientDetailsComponent, canActivate: [AuthGuardService]
-    // },
+    {
+        path: 'details',
+       component: PatientDetailsComponent, canActivate: [AuthGuardService]
+    },
 
 
 ];
