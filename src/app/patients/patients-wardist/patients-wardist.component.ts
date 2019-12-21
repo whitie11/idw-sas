@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 // import { PatientsWardistDataSource, PatientsWardistItem } from './patients-wardist-datasource';
 
 import { Store } from '@ngrx/store';
@@ -17,24 +17,57 @@ export interface PatientsWardistItem {
   PatientId: number;
 }
 
+const INITIAL_DATA = [
+  {
+    PatientId: 1,
+    FirstName: 'Jack',
+    MidName: '',
+    LastName: '',
+    NHSno: '',
+    Birthdate: null,
+    WardName: '',
+    Leave: null,
+    LastSeen: null,
+  },
+  {
+    PatientId: 2,
+    FirstName: 'Charlie',
+    MidName: '',
+    LastName: '',
+    NHSno: '',
+    Birthdate: null,
+    WardName: '',
+    Leave: null,
+    LastSeen: null,
 
+
+
+
+  }
+];
 
 @Component({
   selector: 'app-patients-wardist',
   templateUrl: './patients-wardist.component.html',
   styleUrls: ['./patients-wardist.component.css']
 })
+
+
+
+
 export class PatientsWardistComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
-  @ViewChild(MatTable, { static: false }) table: MatTable<PatientsWardistItem>;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatTable, { static: true }) table: MatTable<Patient>;
 
-  dataSource: Observable<PatientsWardistItem[]>;
   wardName$: Observable<string>;
   selectedWardName: string;
   wardList$: Observable<Patient[]>;
+  dataSource = new MatTableDataSource(INITIAL_DATA);
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>) {
+
+  }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
@@ -49,38 +82,40 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
     'RetDue'
   ];
 
+  OnInit() {
+
+
+  }
+
   ngOnInit() {
 
-
-    //  this.table.dataSource = this.wardList$;
-    //  this.wardList$.subscribe((list) => {
-    //      console.log('Wardlist = ' + list);
-    //      this.dataSource = list;
-    //      this.table.dataSource = list;
-
-    //  });
     this.wardName$ = this.store.select(getWardName);
     console.log('Ward name = ' + this.wardName$);
     this.wardName$.subscribe((ward) => {
       this.selectedWardName = ward;
+      this.store.dispatch(new LoadPts(ward));
+
+
     });
+    this.wardList$ = this.store.select(getPtsWard);
 
-
-
-    this.store.dispatch(new LoadPts(this.selectedWardName));
+    this.wardList$.subscribe((list) => {
+      console.log('Wardlist = ' + list);
+      this.dataSource = new MatTableDataSource(list);
+      this.dataSource.sort = this.sort;
+      this.table.dataSource = this.dataSource;
+     // this.table.renderRows();
+    }
+    );
 
   }
 
   ngAfterViewInit() {
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-    // this.table.dataSource = this.dataSource;
-    this.wardName$ = this.store.select(getWardName);
-    this.table.dataSource = this.store.select(getPtsWard);
+
   }
 
   leaveStatus(pt: Patient) {
-    if (pt.Leave &&  pt.Leave.IsCurrent) {
+    if (pt.Leave && pt.Leave.IsCurrent) {
       return true;
     } else { return false; }
   }
@@ -96,7 +131,7 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
   }
 
   changeColour(pt: Patient) {
-    if (pt.Leave &&  pt.Leave.IsCurrent) {
+    if (pt.Leave && pt.Leave.IsCurrent) {
       return 'LightBlue';
     }
     const obsTime1 = new Date(pt.LastSeen);
@@ -109,11 +144,11 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
 
   retDateColour(pt: Patient) {
 
-    if (pt.Leave && pt.Leave.IsCurrent ) {
-        if (new Date(pt.Leave.TimeRetDue) < new Date() ) {
-            return 'LightPink';
-            }
+    if (pt.Leave && pt.Leave.IsCurrent) {
+      if (new Date(pt.Leave.TimeRetDue) < new Date()) {
+        return 'LightPink';
+      }
 
-  } else { return 'White' ; }
-}
+    } else { return 'White'; }
+  }
 }

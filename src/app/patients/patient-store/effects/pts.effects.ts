@@ -28,7 +28,7 @@ export class PtsEffects {
         return this.ptService.getWardList(payload)
           .pipe(
             map((res) => {
-              console.log('return from service' + res);
+              console.log('return from service ' + res);
               return new PtsActions.LoadPtsSuccess(res);
             }),
             catchError((error) => {

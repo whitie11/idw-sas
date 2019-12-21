@@ -13,8 +13,8 @@ const initialState: State = {
   test: 'Hello',
   patients: [
     {
-      PatientId: 1,
-      FirstName: 'Fred',
+      PatientId: null,
+      FirstName: '',
       MidName: '',
       LastName: '',
       NHSno: '',
@@ -22,11 +22,18 @@ const initialState: State = {
       WardName: '',
       Leave: null,
       LastSeen:  null,
-
-
-
-
-    }
+    },
+    // {
+    //   PatientId: 2,
+    //   FirstName: 'Joe',
+    //   MidName: '',
+    //   LastName: '',
+    //   NHSno: '',
+    //   Birthdate: null,
+    //   WardName: '',
+    //   Leave: null,
+    //   LastSeen:  null,
+    // }
   ]
 };
 
