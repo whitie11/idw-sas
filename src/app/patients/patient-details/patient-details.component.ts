@@ -5,6 +5,14 @@ import { Observable } from 'rxjs';
 import { Patient } from 'src/app/models/patient';
 
 
+export interface Item {
+  label: string;
+  route: string;
+}
+
+
+
+
 @Component({
   selector: 'app-patient-details',
   templateUrl: './patient-details.component.html',
@@ -13,6 +21,33 @@ import { Patient } from 'src/app/models/patient';
 export class PatientDetailsComponent implements OnInit {
   selectedPt$: Observable<Patient>;
 
+    Menu: Item[] = [
+  {
+    label: 'Observations',
+    route: './obs'
+  },
+  {
+    label: 'Leave Register',
+    route: './pt-leave'
+  },
+  {
+    label: 'Visitors',
+    route: 'pt-visitors'
+  },
+   {
+    label: 'Patient Property',
+    route: 'property'
+  },
+  {
+    label: 'Restricted Items',
+    route: 'restricted-items'
+  },
+  {
+    label: 'Ward List',
+    route: '/patients'
+  }
+];
+
 
   constructor(private store: Store<State>) { }
 
@@ -20,4 +55,7 @@ export class PatientDetailsComponent implements OnInit {
     this.selectedPt$ = this.store.select(getSelectedPt);
   }
 
+  menuClick(menuItem: Item) {
+console.log(menuItem.label);
+  }
 }

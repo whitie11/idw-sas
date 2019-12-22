@@ -16,7 +16,6 @@
 .detail-sidebar {
     grid-area: sidebar;
   background-color: rgb(209, 227, 250);
-  padding: 10px;
 }
 
 .leave {
