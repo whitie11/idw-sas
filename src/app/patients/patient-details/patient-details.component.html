@@ -1,4 +1,17 @@
-<p>patient-details works!</p>
-<div *ngIf="selectedPt$ | async; let pt">
-    <h3> {{pt.FirstName}}</h3>
+<div class="wrapper">
+  <div class="detail-sidebar">
+    <p>patient-details works!</p>
   </div>
+  <div class="detail-header">
+    Header goes here!
+  </div>
+  <div class="detail-main">
+    <div *ngIf="selectedPt$ | async; let pt">
+      <h3> {{pt?.FirstName}}</h3>
+      <h3> {{pt.FullName}}</h3>
+    </div>
+  </div>
+  <div class="detail-footer">
+    Space reserved for footer
+  </div>
+</div>

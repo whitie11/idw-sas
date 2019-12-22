@@ -1,0 +1,39 @@
+.wrapper {
+  display: grid;
+  height: 90vh;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 30px 1fr 20px;
+
+  grid-template-areas:   "sidebar header"
+                        "sidebar content"
+                        "footer footer";
+}
+
+.detail-header {
+    grid-area: header;
+    background-color: red;  
+}
+.detail-sidebar {
+    grid-area: sidebar;
+  background-color: rgb(209, 227, 250);
+  padding: 10px;
+}
+
+.leave {
+  background-color: rgb(255, 255, 0);
+}
+
+.menu {
+  padding-top: 15px;
+}
+
+.detail-main {
+    grid-area: content;
+  background-color: aquamarine;
+  padding: 10px;
+}
+
+.detail-footer {
+    grid-area: footer;
+    background-color: red;  
+}

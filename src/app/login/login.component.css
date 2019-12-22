@@ -1,4 +1,12 @@
+
+:host {
+  display: grid;
+ /* align-items: center;
+ justify-items: center; */
+ place-items: center;
+}
+
+
 .login-card {
-    width: 50%;
-    
+  width: 200px;
   }

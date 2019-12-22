@@ -24,9 +24,6 @@ import { MaterialModule } from '../modules/material.module';
     PatientsRoutingModule,
     StoreModule.forFeature('pts', fromPts.PtReducer),
     EffectsModule.forFeature([PtsEffects]),
-    // MatTableModule,
-    // MatPaginatorModule,
-    // MatSortModule,
     MaterialModule,
   ],
   providers: [
