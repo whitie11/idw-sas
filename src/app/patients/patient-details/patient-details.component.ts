@@ -8,6 +8,8 @@ import { Patient } from 'src/app/models/patient';
 export interface Item {
   label: string;
   route: string;
+  isActive: boolean;
+
 }
 
 
@@ -21,32 +23,38 @@ export interface Item {
 export class PatientDetailsComponent implements OnInit {
   selectedPt$: Observable<Patient>;
 
-    Menu: Item[] = [
-  {
-    label: 'Observations',
-    route: './obs'
-  },
-  {
-    label: 'Leave Register',
-    route: './pt-leave'
-  },
-  {
-    label: 'Visitors',
-    route: 'pt-visitors'
-  },
-   {
-    label: 'Patient Property',
-    route: 'property'
-  },
-  {
-    label: 'Restricted Items',
-    route: 'restricted-items'
-  },
-  {
-    label: 'Ward List',
-    route: '/patients'
-  }
-];
+  Menu: Item[] = [
+    {
+      label: 'Observations',
+      route: './obs',
+      isActive: false
+    },
+    {
+      label: 'Leave Register',
+      route: './pt-leave',
+      isActive: false
+    },
+    {
+      label: 'Visitors',
+      route: 'pt-visitors',
+      isActive: false
+    },
+    {
+      label: 'Patient Property',
+      route: 'property',
+      isActive: false
+    },
+    {
+      label: 'Restricted Items',
+      route: 'restricted-items',
+      isActive: false
+    },
+    {
+      label: 'Ward List',
+      route: '/patients',
+      isActive: false
+    }
+  ];
 
 
   constructor(private store: Store<State>) { }
@@ -56,6 +64,9 @@ export class PatientDetailsComponent implements OnInit {
   }
 
   menuClick(menuItem: Item) {
-console.log(menuItem.label);
+    this.Menu.forEach(i => i.isActive = false);
+    console.log(menuItem.label);
+    menuItem.isActive = true;
   }
+
 }

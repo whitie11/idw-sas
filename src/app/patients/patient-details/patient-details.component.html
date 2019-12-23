@@ -2,14 +2,14 @@
   <div class="detail-sidebar">
     <div class="details">
       <h3>Patient Details</h3>
-      <h6> {{selectedPatient?.FirstName}} {{selectedPatient?.MidName}} {{selectedPatient?.LastName}}</h6>
+      <h6> Name!! {{selectedPt$.FirstName | async}} {{selectedPatient?.MidName}} {{selectedPatient?.LastName}}</h6>
       <small>DoB: {{selectedPatient?.Birthdate | date: 'dd/MM/yyyy'}} <br />
       NHS no. {{selectedPatient?.NHSno}} <br />
        Last Seen:{{selectedPatient?.LastSeen +'Z' | date: ' HH:mm dd/MM/yyyy'}}</small> 
       </div>
       <mat-nav-list>
-        <a mat-list-item (click)="menuClick(Item)" *ngFor="let Item of Menu"> {{Item.label}} </a>
-     </mat-nav-list>
+        <a mat-list-item  [ngClass]="{bgc:Item.isActive}" (click)="menuClick(Item)" *ngFor="let Item of Menu"> {{Item.label}} </a>
+      </mat-nav-list>
   </div>
   <div class="detail-header">
     Header goes here! 
