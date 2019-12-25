@@ -20,13 +20,13 @@ export class NavComponent {
   selectedWardName$: Observable<string>;
 
   wards = [
-    {value: 'Churchill', viewValue: 'Churchill'},
-    {value: 'Keats', viewValue: 'Keats'},
-    {value: 'Byron', viewValue: 'Byron'}
+    { value: 'Churchill', viewValue: 'Churchill' },
+    { value: 'Keats', viewValue: 'Keats' },
+    { value: 'Byron', viewValue: 'Byron' }
   ];
 
 
-  constructor( public router: Router, private store: Store<fromStore.AppState>) {
+  constructor(public router: Router, private store: Store<fromStore.AppState>) {
     this.isAuthenticated = this.store.select(fromStore.getIsAuth);
     this.username$ = this.store.select(fromStore.getUsername);
     this.selectedWardName$ = this.store.select(fromStore.getWardName);
@@ -46,11 +46,17 @@ export class NavComponent {
     console.log(this.selectedWard);
     this.store.dispatch(new ChangeWard(this.selectedWard));
 
+    // tslint:disable-next-line:only-arrow-functions
     this.router.routeReuseStrategy.shouldReuseRoute = function() {
-       console.log(this.selectedWard);
-       return false;
- };
+      return false;
+    };
     this.router.navigated = false;
-    this.router.navigateByUrl(this.router.url);
+    const url = this.router.url;
+    if (url.startsWith('/patients')) {
+      this.router.navigateByUrl('/patients');
+    } else {
+      this.router.navigateByUrl('/home');
+    }
   }
+
 }

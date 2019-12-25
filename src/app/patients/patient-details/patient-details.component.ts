@@ -22,7 +22,7 @@ export interface Item {
 })
 export class PatientDetailsComponent implements OnInit {
   selectedPt$: Observable<Patient>;
-
+  selectedPatient: Patient;
   Menu: Item[] = [
     {
       label: 'Observations',
@@ -61,12 +61,30 @@ export class PatientDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.selectedPt$ = this.store.select(getSelectedPt);
+    this.selectedPt$.subscribe(pt => {
+      this.selectedPatient = pt;
+    });
   }
 
   menuClick(menuItem: Item) {
     this.Menu.forEach(i => i.isActive = false);
     console.log(menuItem.label);
     menuItem.isActive = true;
+  }
+
+  leaveStatus() {
+    if (typeof this.selectedPatient === 'undefined' || this.selectedPatient === null ) {
+      return false;
+    }
+    if (typeof this.selectedPatient.Leave === 'undefined' || this.selectedPatient.Leave === null) {
+      return false;
+    }
+    if (typeof this.selectedPatient.Leave.IsCurrent === 'undefined' || this.selectedPatient.Leave.IsCurrent === null) {
+      return false;
+    }
+
+    const x = this.selectedPatient.Leave.IsCurrent;
+    return true;
   }
 
 }

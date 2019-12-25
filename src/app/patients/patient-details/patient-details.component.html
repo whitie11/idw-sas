@@ -2,17 +2,25 @@
   <div class="detail-sidebar">
     <div class="details">
       <h3>Patient Details</h3>
-      <h6> Name!! {{selectedPt$.FirstName | async}} {{selectedPatient?.MidName}} {{selectedPatient?.LastName}}</h6>
-      <small>DoB: {{selectedPatient?.Birthdate | date: 'dd/MM/yyyy'}} <br />
-      NHS no. {{selectedPatient?.NHSno}} <br />
-       Last Seen:{{selectedPatient?.LastSeen +'Z' | date: ' HH:mm dd/MM/yyyy'}}</small> 
-      </div>
+      <h4> {{(selectedPt$ | async).FirstName }} {{(selectedPt$ | async).MidName }} {{(selectedPt$ | async).LastName }}
+      </h4>
+      <small>DoB: {{(selectedPt$ | async).Birthdate | date: 'dd/MM/yyyy'}} <br />
+        NHS no. {{(selectedPt$| async).NHSno }} <br />
+        Last Seen:{{((selectedPt$ | async).LastSeen +'Z') | date: ' HH:mm dd/MM/yyyy'}}</small>
+    </div>
+
+    <div class ="leave" [hidden]="!leaveStatus()">Patient is on leave</div>
+
+    <div class="menu">
+      <Span>Sub pages</Span>
       <mat-nav-list>
-        <a mat-list-item  [ngClass]="{bgc:Item.isActive}" (click)="menuClick(Item)" *ngFor="let Item of Menu"> {{Item.label}} </a>
+        <a mat-list-item [ngClass]="{bgc:Item.isActive}" (click)="menuClick(Item)" *ngFor="let Item of Menu">
+          {{Item.label}} </a>
       </mat-nav-list>
+    </div>
   </div>
   <div class="detail-header">
-    Header goes here! 
+    Header goes here!
   </div>
   <div class="detail-main">
     <div *ngIf="selectedPt$ | async; let pt">

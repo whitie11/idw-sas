@@ -15,20 +15,29 @@
 }
 .detail-sidebar {
     grid-area: sidebar;
-  background-color: rgb(209, 227, 250);
+  background-color: rgb(220, 230, 255);
+}
+
+.details {
+  padding-left: 10px;;
 }
 
 .leave {
+  width: 180px;
+  margin-left: 10px;
   background-color: rgb(255, 255, 0);
 }
 
 .menu {
-  padding-top: 15px;
+margin-top: 15px;
+ margin-left: 20px;
+  width: 180px;
+  background-color: cyan;
 }
 
 .detail-main {
     grid-area: content;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   padding: 10px;
 }
 
@@ -39,5 +48,7 @@
 
 
 .bgc {
-  background: rgb(208, 190, 250) !important;
+  background: white !important;
+  justify-content: flex-end;
 }
+
