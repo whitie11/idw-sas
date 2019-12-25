@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { getTest, selectPtsState, PtsState, getWardName, State, getPtsWard, getSelectedPt } from '../patient-store/pts.state';
 import { Observable } from 'rxjs';
 import { Patient } from 'src/app/models/patient';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 export interface Item {
@@ -57,7 +58,7 @@ export class PatientDetailsComponent implements OnInit {
   ];
 
 
-  constructor(private store: Store<State>) { }
+  constructor(private store: Store<State>, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.selectedPt$ = this.store.select(getSelectedPt);
@@ -70,6 +71,7 @@ export class PatientDetailsComponent implements OnInit {
     this.Menu.forEach(i => i.isActive = false);
     console.log(menuItem.label);
     menuItem.isActive = true;
+    this.router.navigate(['obs'], {relativeTo: this.route});
   }
 
   leaveStatus() {

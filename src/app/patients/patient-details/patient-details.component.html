@@ -12,7 +12,7 @@
     <div class ="leave" [hidden]="!leaveStatus()">Patient is on leave</div>
 
     <div class="menu">
-      <Span>Sub pages</Span>
+      <Span>Select Option</Span>
       <mat-nav-list>
         <a mat-list-item [ngClass]="{bgc:Item.isActive}" (click)="menuClick(Item)" *ngFor="let Item of Menu">
           {{Item.label}} </a>
@@ -23,10 +23,11 @@
     Header goes here!
   </div>
   <div class="detail-main">
-    <div *ngIf="selectedPt$ | async; let pt">
+    <!-- <div *ngIf="selectedPt$ | async; let pt">
       <h3> {{pt?.FirstName}}</h3>
       <h3> {{pt.FullName}}</h3>
-    </div>
+    </div> -->
+    <router-outlet></router-outlet>
   </div>
   <div class="detail-footer">
     Space reserved for footer

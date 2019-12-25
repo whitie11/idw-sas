@@ -11,16 +11,11 @@ const routes: Routes = [
         path: '',
         component: PatientsWardistComponent, canActivate: [AuthGuardService]
     },
-    // {
-    //     path: 'patient-list',
-    //     component: PatientsListComponent, canActivate: [AuthGuardService]
-    // },
     {
         path: 'details',
-       component: PatientDetailsComponent, canActivate: [AuthGuardService]
+       // component: PatientDetailsComponent, canActivate: [AuthGuardService]
+        loadChildren: () => import('./patient-details/patient-details.module').then(m => m.PatientDetailsModule)
     },
-
-
 ];
 
 @NgModule({

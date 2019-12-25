@@ -11,13 +11,12 @@ import * as fromPts from './patient-store/reducers/pts.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { PtsEffects } from './patient-store/effects/pts.effects';
 import { PatientsWardistComponent } from './patients-wardist/patients-wardist.component';
-import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { MaterialModule } from '../modules/material.module';
+
 
 @NgModule({
   declarations: [
      PatientsWardistComponent,
-     PatientDetailsComponent,
     ],
   imports: [
     CommonModule,
@@ -26,6 +25,7 @@ import { MaterialModule } from '../modules/material.module';
     EffectsModule.forFeature([PtsEffects]),
     MaterialModule,
   ],
+
   providers: [
     AuthGuardService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
