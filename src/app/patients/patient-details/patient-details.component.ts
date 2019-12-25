@@ -27,17 +27,17 @@ export class PatientDetailsComponent implements OnInit {
   Menu: Item[] = [
     {
       label: 'Observations',
-      route: './obs',
+      route: 'obs',
       isActive: false
     },
     {
       label: 'Leave Register',
-      route: './pt-leave',
+      route: 'leave',
       isActive: false
     },
     {
       label: 'Visitors',
-      route: 'pt-visitors',
+      route: 'visitors',
       isActive: false
     },
     {
@@ -71,7 +71,7 @@ export class PatientDetailsComponent implements OnInit {
     this.Menu.forEach(i => i.isActive = false);
     console.log(menuItem.label);
     menuItem.isActive = true;
-    this.router.navigate(['obs'], {relativeTo: this.route});
+    this.router.navigate([menuItem.route], {relativeTo: this.route});
   }
 
   leaveStatus() {

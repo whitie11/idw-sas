@@ -4,6 +4,10 @@ import { AuthGuardService } from '../../services/auth-guard';
 
 import { PatientDetailsComponent } from '../patient-details/patient-details.component';
 import { ObsComponent } from './obs/obs.component';
+import { LeaveComponent } from './leave/leave.component';
+import { PropertyComponent } from './property/property.component';
+import { VisitorsComponent } from './visitors/visitors.component';
+import { RestrictedComponent } from './restricted/restricted.component';
 
 const routes: Routes = [
   {
@@ -13,23 +17,23 @@ const routes: Routes = [
       {
         path: 'obs',
         component: ObsComponent
+      },
+      {
+        path: 'leave',
+        component: LeaveComponent
+      },
+      {
+        path: 'property',
+        component: PropertyComponent
+      },
+      {
+        path: 'visitors',
+        component: VisitorsComponent
+      },
+      {
+        path: 'restricted-items',
+        component: RestrictedComponent
       }
-      //     {
-      //         path: 'pt-leave/:patientId',
-      // component: LeaveComponent
-      //     },
-      //     {
-      //         path: 'property/:patientId',
-      // component: PropertyComponent
-      //     },
-      //     {
-      //         path: 'pt-visitors/:patientId',
-      // component: VisitorsComponent
-      //     },
-      //     {
-      //         path: 'restricted-items/:patientId',
-      // component: RestrictedComponent
-      //     }
     ]
   }
 ];
