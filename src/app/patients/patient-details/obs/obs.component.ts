@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ObsComponent implements OnInit {
 
+  public chartType: string;
+  chartRange: string;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public onValChange(val: string) {
+    this.chartType = val;
+  }
+
+  public onRangeChange(val: string) {
+    this.chartRange = val;
   }
 
 }

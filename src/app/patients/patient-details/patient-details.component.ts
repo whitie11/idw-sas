@@ -24,6 +24,7 @@ export interface Item {
 export class PatientDetailsComponent implements OnInit {
   selectedPt$: Observable<Patient>;
   selectedPatient: Patient;
+  pageHeader = 'Select Option from menu on left';
   Menu: Item[] = [
     {
       label: 'Observations',
@@ -71,6 +72,7 @@ export class PatientDetailsComponent implements OnInit {
     this.Menu.forEach(i => i.isActive = false);
     console.log(menuItem.label);
     menuItem.isActive = true;
+    this.pageHeader = menuItem.label;
     this.router.navigate([menuItem.route], {relativeTo: this.route});
   }
 

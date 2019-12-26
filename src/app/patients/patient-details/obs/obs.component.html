@@ -1,1 +1,34 @@
-<p>obs works!</p>
+
+  <mat-button-toggle-group #group="matButtonToggleGroup" [value]="ChartType" (change)="onValChange(group.value)">
+
+    <mat-button-toggle [value]="Table">
+      Table
+    </mat-button-toggle>
+    <mat-button-toggle value="Chart">
+      Status Chart
+    </mat-button-toggle>
+    <mat-button-toggle value="Location">
+      Location
+    </mat-button-toggle>
+
+  </mat-button-toggle-group>
+
+<mat-button-toggle-group #group2="matButtonToggleGroup" [value]="ChartRange" (change)="onRangeChange(group2.value)">
+  <mat-button-toggle value="Day">
+    Day
+  </mat-button-toggle>
+  <mat-button-toggle value="Week">
+    Week
+  </mat-button-toggle>
+  <mat-button-toggle value="Month">
+    Month
+  </mat-button-toggle>
+  <mat-button-toggle value="All">
+    All
+  </mat-button-toggle>
+  <mat-button-toggle value="Range">
+    Range
+  </mat-button-toggle>
+</mat-button-toggle-group>
+
+<p> {{chartType}} {{chartRange}}</p>
