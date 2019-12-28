@@ -1,34 +1,58 @@
-
+<div class="optionsGroup">
+  Type:
   <mat-button-toggle-group #group="matButtonToggleGroup" [value]="ChartType" (change)="onValChange(group.value)">
-
-    <mat-button-toggle [value]="Table">
+    <mat-button-toggle value="Table">
       Table
     </mat-button-toggle>
-    <mat-button-toggle value="Chart">
+    <mat-button-toggle value="obsChart">
       Status Chart
     </mat-button-toggle>
-    <mat-button-toggle value="Location">
+    <mat-button-toggle value="obsLocation">
       Location
     </mat-button-toggle>
-
   </mat-button-toggle-group>
+  <span class="spacer"></span>
+  Scope:
+  <mat-button-toggle-group #group2="matButtonToggleGroup" [value]="ChartRange" (change)="onRangeChange(group2.value)">
+    <mat-button-toggle value="Day">
+      Day
+    </mat-button-toggle>
+    <mat-button-toggle value="Week">
+      Week
+    </mat-button-toggle>
+    <mat-button-toggle value="Month">
+      Month
+    </mat-button-toggle>
+    <mat-button-toggle value="All">
+      All
+    </mat-button-toggle>
+    <mat-button-toggle value="Range">
+      Range
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <span *ngIf="chartRange == 'Range'">
+  <mat-form-field >
+    <input matInput [matDatepicker]=" startDate" placeholder="Start Date" disabled formControlName="startDate">
+    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+    <mat-datepicker #startDate disabled="false"></mat-datepicker>
+    </mat-form-field>
 
-<mat-button-toggle-group #group2="matButtonToggleGroup" [value]="ChartRange" (change)="onRangeChange(group2.value)">
-  <mat-button-toggle value="Day">
-    Day
-  </mat-button-toggle>
-  <mat-button-toggle value="Week">
-    Week
-  </mat-button-toggle>
-  <mat-button-toggle value="Month">
-    Month
-  </mat-button-toggle>
-  <mat-button-toggle value="All">
-    All
-  </mat-button-toggle>
-  <mat-button-toggle value="Range">
-    Range
-  </mat-button-toggle>
-</mat-button-toggle-group>
+    <mat-form-field>
+      <input matInput [matDatepicker]="endDate" placeholder="End Date" disabled formControlName="endate">
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+  </span>
+</div>
 
-<p> {{chartType}} {{chartRange}}</p>
+<div *ngIf="chartType =='Table'">
+  Table goes here
+</div>
+
+<div *ngIf="chartType =='obsChart'">
+  Obs behaviour chart goes here
+</div>
+
+<div *ngIf="chartType =='obsLocation'">
+  Location Chart goes here
+</div>

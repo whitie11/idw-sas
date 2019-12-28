@@ -12,7 +12,8 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatListModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  MatDatepickerModule
 } from '@angular/material';
 
 @NgModule({
@@ -28,7 +29,8 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatListModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatDatepickerModule
   ],
   exports: [
     MatButtonModule,
@@ -42,7 +44,8 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatListModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatDatepickerModule
   ]
 })
 export class MaterialModule { }
