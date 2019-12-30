@@ -61,8 +61,8 @@ export class ObsComponent implements OnInit {
 
   chartType: string;
   chartRange: string;
-  public obs1: Obs[];
-  dataSource = new MatTableDataSource(this.obs1);
+  // public obs1: Obs[];
+  dataSource = new MatTableDataSource();
   public obsStart: any;
   public obsEnd: any;
 
@@ -75,16 +75,20 @@ export class ObsComponent implements OnInit {
       this.selectedPatient = pt;
     });
     this.chartType = 'Table';
-    this.chartRange = 'All';
-    this.obsStart = moment('2019-01-01');
+    this.chartRange = 'Day';
+    this.obsStart = moment().subtract('1', 'days');
     this.obsEnd = moment();
     this.getData();
   }
 
   public getData() {
+    this.dataSource = new MatTableDataSource();
+    if (this.obsStart > this.obsEnd) {
+      return;
+    }
     this.obsService.getObsRange2(this.selectedPatient.PatientId, this.obsStart, this.obsEnd).subscribe(o => {
-      this.obs1 = [];
-      this.obs1 = o;
+
+      // this.obs1 = o;
       this.dataSource = new MatTableDataSource(o);
       // this.dataSource.sort = this.sort2;
       // this.table2.dataSource = this.dataSource;
@@ -97,23 +101,27 @@ export class ObsComponent implements OnInit {
 
   public onTypeChange(val: string) {
     this.chartType = val;
-    if (this.obsStart > this.obsEnd) {
-      return;
-    }
     this.getData();
     console.log(val);
   }
 
   public onRangeChange(val: string) {
- this.chartRange = val;
+    this.chartRange = val;
+    this.obsEnd = moment();
+    if (val == 'Day') {this.obsStart = moment().subtract('1', 'days')}
+    if (val == 'Week') {this.obsStart = moment().subtract('7', 'days')}
+    if (val == 'Month') {this.obsStart = moment().subtract('1', 'months')}
+    if (val == 'All') {this.obsStart = moment('2019-01-01')}
+    this.getData();
   }
 
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+  datesChanged(type: string, event: MatDatepickerInputEvent<Date>) {
     if (type == 'start') {
       this.obsStart = event.value;
     }
-    else if (type == 'end')
-      this.obsEnd = event.value;
+    else if (type == 'end') { this.obsEnd = event.value; }
+
+    this.getData();
   }
 
 }

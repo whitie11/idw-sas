@@ -30,13 +30,14 @@
       Range
     </mat-button-toggle>
   </mat-button-toggle-group>
+
   <span *ngIf="chartRange == 'Range'">
   <mat-form-field >
     <input matInput [matDatepicker]=" startDate"
     placeholder="Start Date" [value]="obsStart" 
     disabled 
     formControlName="startDate"
-    (dateChange)="addEvent('start', $event)">
+    (dateChange)="datesChanged('start', $event)">
     <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
     <mat-datepicker #startDate disabled="false"></mat-datepicker>
     </mat-form-field>
@@ -46,13 +47,14 @@
       placeholder="End Date"
       [value]="obsEnd" 
       disabled formControlName="endDate"
-      (dateChange)="addEvent('end', $event)">
+      (dateChange)="datesChanged('end', $event)">
       <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
       <mat-datepicker #endDate disabled="false"></mat-datepicker>
     </mat-form-field>
   </span>
+
 </div>
-output:  {{chartType}} {{chartRange}} {{obsStart}}
+<!-- output:  {{chartType}} {{chartRange}} {{obsStart}} -->
 <div *ngIf="chartType =='Table'">
   <!-- Table goes here -->
   <div class="mat-elevation-z8 obsTable">
