@@ -41,7 +41,6 @@
     <!-- Leave Status Column -->
     <ng-container matColumnDef="OnWard">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>On Ward</th>
-
       <td mat-cell *matCellDef="let row" align="center" style="text-align:center; font-size:150%; font-weight:bold;">
         <div *ngIf="!leaveStatus(row); else elseDiv" style="color:green">
           &#10004;
@@ -50,7 +49,6 @@
           <div style="color:orangered"> &#10007;</div>
         </ng-template>
       </td>
-
     </ng-container>
 
     <!-- LastSeen Column -->
@@ -66,18 +64,14 @@
     <!-- Return Due Column -->
     <ng-container matColumnDef="RetDue">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Return Due</th>
-
       <td mat-cell *matCellDef="let row" [ngStyle]="{'background-color': retDateColour(row)}">
-       
-        
-          {{retDate(row)}}
-      
+        {{retDate(row)}}
       </td>
 
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsx"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsx;" (click)="getRecord(row)"></tr>
   </table>
 
   <!-- <mat-paginator #paginator

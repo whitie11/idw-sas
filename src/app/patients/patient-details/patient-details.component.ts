@@ -10,11 +10,7 @@ export interface Item {
   label: string;
   route: string;
   isActive: boolean;
-
 }
-
-
-
 
 @Component({
   selector: 'app-patient-details',
@@ -72,7 +68,7 @@ export class PatientDetailsComponent implements OnInit {
     this.Menu.forEach(i => i.isActive = false);
     console.log(menuItem.label);
     menuItem.isActive = true;
-    this.pageHeader = menuItem.label;
+    // this.pageHeader = menuItem.label;
     this.router.navigate([menuItem.route], {relativeTo: this.route});
   }
 

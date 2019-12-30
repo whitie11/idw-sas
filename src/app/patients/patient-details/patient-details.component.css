@@ -4,16 +4,16 @@
   grid-template-columns: 200px 1fr;
   grid-template-rows: 30px 1fr 20px;
 
-  grid-template-areas:   "sidebar header"
+  grid-template-areas:   "sidebar content"
                         "sidebar content"
                         "footer footer";
 }
 
-.detail-header {
+/* .detail-header {
     padding-left: 10px;
     padding-top: 5px;
     grid-area: header;
-}
+} */
 .detail-sidebar {
     grid-area: sidebar;
   background-color: rgb(220, 230, 255);

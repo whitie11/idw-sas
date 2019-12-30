@@ -35,7 +35,7 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
   }
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = [
+  displayedColumnsx = [
     'PatientId',
     'FirstName',
     'MidName',

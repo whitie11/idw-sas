@@ -1,6 +1,6 @@
 <div class="optionsGroup">
   Type:
-  <mat-button-toggle-group #group="matButtonToggleGroup" [value]="ChartType" (change)="onValChange(group.value)">
+  <mat-button-toggle-group #group="matButtonToggleGroup" [value]="chartType" (change)="onTypeChange(group.value)">
     <mat-button-toggle value="Table">
       Table
     </mat-button-toggle>
@@ -13,7 +13,7 @@
   </mat-button-toggle-group>
   <span class="spacer"></span>
   Scope:
-  <mat-button-toggle-group #group2="matButtonToggleGroup" [value]="ChartRange" (change)="onRangeChange(group2.value)">
+  <mat-button-toggle-group #group2="matButtonToggleGroup" [value]="chartRange" (change)="onRangeChange(group2.value)">
     <mat-button-toggle value="Day">
       Day
     </mat-button-toggle>
@@ -32,24 +32,92 @@
   </mat-button-toggle-group>
   <span *ngIf="chartRange == 'Range'">
   <mat-form-field >
-    <input matInput [matDatepicker]=" startDate" placeholder="Start Date" disabled formControlName="startDate">
+    <input matInput [matDatepicker]=" startDate"
+    placeholder="Start Date" [value]="obsStart" 
+    disabled 
+    formControlName="startDate"
+    (dateChange)="addEvent('start', $event)">
     <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
     <mat-datepicker #startDate disabled="false"></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [matDatepicker]="endDate" placeholder="End Date" disabled formControlName="endate">
+      <input matInput [matDatepicker]="endDate"
+      placeholder="End Date"
+      [value]="obsEnd" 
+      disabled formControlName="endDate"
+      (dateChange)="addEvent('end', $event)">
       <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
       <mat-datepicker #endDate disabled="false"></mat-datepicker>
     </mat-form-field>
   </span>
 </div>
-
+output:  {{chartType}} {{chartRange}} {{obsStart}}
 <div *ngIf="chartType =='Table'">
-  Table goes here
+  <!-- Table goes here -->
+  <div class="mat-elevation-z8 obsTable">
+    <table  mat-table  [dataSource]="dataSource" class="full-width-table" aria-label="Elements">
+      <!-- Id Column -->
+      <!-- <ng-container matColumnDef="ObsId">
+        <th mat-header-cell *matHeaderCellDef >Id</th>
+        <td mat-cell *matCellDef="let row">{{row.ObsId}}</td>
+      </ng-container> -->
+
+  
+      <!-- Time Column -->
+      <ng-container matColumnDef="ObsTime">
+        <th mat-header-cell *matHeaderCellDef >Time last seen</th>
+        <td mat-cell *matCellDef="let row">{{row.ObsTime | date: 'HH:mm dd/MM/yyyy'}}</td>
+      </ng-container>
+
+  
+      <!-- Location Column -->
+      <ng-container matColumnDef="ObsLocation">
+        <th mat-header-cell *matHeaderCellDef>Location</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.ObsLocation}}
+        </td>
+      </ng-container>
+  
+            <!-- Status Column -->
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let row">
+                {{row.Status}}
+              </td>
+            </ng-container>
+   
+            <!-- SeenBy Column -->
+     <ng-container matColumnDef="SeenBy">
+      <th mat-header-cell *matHeaderCellDef>Seen By</th>
+      <td mat-cell *matCellDef="let row">
+        {{row.SeenBy}}
+      </td>
+    </ng-container>
+
+         <!-- Notes Column -->
+         <ng-container matColumnDef="Notes">
+          <th mat-header-cell *matHeaderCellDef>Comments/ Notes</th>
+          <td mat-cell *matCellDef="let row">
+            {{(row.Notes.length>40)? (row.Notes | slice:0:40)+'...':(row.Notes)}}
+          </td>
+        </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="obsTableColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: obsTableColumns;" ></tr>
+    </table>
+  
+    <!-- <mat-paginator #paginator
+        [length]="dataSource?.data.length"
+        [pageIndex]="0"
+        [pageSize]="50"
+        [pageSizeOptions]="[25, 50, 100, 250]">
+    </mat-paginator> -->
+  </div>
+  
 </div>
 
-<div *ngIf="chartType =='obsChart'">
+<div *ngIf="chartType === 'obsChart'">
   Obs behaviour chart goes here
 </div>
 
