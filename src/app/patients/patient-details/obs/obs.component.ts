@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { State, getSelectedPt } from '../../patient-store/pts.state';
@@ -16,6 +16,8 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment } from 'moment';
 import { Obs } from 'src/app/models/obs';
+import { dataItem } from '../../../models/data-item';
+import { Chart } from 'chart.js';
 import { ObservationService } from 'src/app/services/observation.service';
 
 const moment = _rollupMoment || _moment;
@@ -66,6 +68,29 @@ export class ObsComponent implements OnInit {
   public obsStart: any;
   public obsEnd: any;
 
+  dataArray: Obs[];
+  showTable = true;
+  showStatusChart: boolean;
+  showLocChart: boolean;
+  statusDataItem: dataItem[];
+  statusScatterChart: Chart | null;
+  chartLoaded = false;
+  locDataItem: dataItem[];
+  locScatterChart: Chart | null;
+  private locChartLoaded = false;
+  @ViewChild('placeholder2', { static: true }) elLoc: ElementRef;
+  modalDisplay: boolean;
+  @ViewChild('placeholder1', { static: false }) elStatus: ElementRef;
+  mStatus: string;
+  mLocation: string;
+  mNotes: string;
+  mObsBy: string;
+  mDateTime: Date;
+
+
+
+
+
   constructor(private obsService: ObservationService, private store: Store<State>) {
   }
 
@@ -92,10 +117,10 @@ export class ObsComponent implements OnInit {
       this.dataSource = new MatTableDataSource(o);
       // this.dataSource.sort = this.sort2;
       // this.table2.dataSource = this.dataSource;
-      // this.setChartData(o);
-      // const test = this.createChart();
-      // this.setLocChartData(o);
-      // const test2 = this.createLocChart();
+      this.setChartData(o);
+      const test = this.createChart();
+      this.setLocChartData(o);
+      const test2 = this.createLocChart();
     });
   }
 
@@ -103,15 +128,30 @@ export class ObsComponent implements OnInit {
     this.chartType = val;
     this.getData();
     console.log(val);
+
+    if (val === 'obsChart') {
+      this.showTable = false;
+      this.showLocChart = false;
+      this.showStatusChart = true;
+    } else if (val === 'Table') {
+      this.showTable = true;
+      this.showLocChart = false;
+      this.showStatusChart = false;
+    } else if (val === 'obsLocation') {
+      this.showTable = false;
+      this.showLocChart = true;
+      this.showStatusChart = false;
+    }
+
   }
 
   public onRangeChange(val: string) {
     this.chartRange = val;
     this.obsEnd = moment();
-    if (val == 'Day') {this.obsStart = moment().subtract('1', 'days')}
-    if (val == 'Week') {this.obsStart = moment().subtract('7', 'days')}
-    if (val == 'Month') {this.obsStart = moment().subtract('1', 'months')}
-    if (val == 'All') {this.obsStart = moment('2019-01-01')}
+    if (val == 'Day') { this.obsStart = moment().subtract('1', 'days') }
+    if (val == 'Week') { this.obsStart = moment().subtract('7', 'days') }
+    if (val == 'Month') { this.obsStart = moment().subtract('1', 'months') }
+    if (val == 'All') { this.obsStart = moment('2019-01-01') }
     this.getData();
   }
 
@@ -123,5 +163,369 @@ export class ObsComponent implements OnInit {
 
     this.getData();
   }
+
+  // -----------------------------------
+  setChartData(data: Obs[]) {
+    this.statusDataItem = [];
+    if (data === null || data === undefined) {
+      this.chartLoaded = false;
+      return;
+    }
+
+    let yValue = 0;
+    data.forEach(element => {
+      switch (element.Status) {
+        case 'On Leave':
+          yValue = 1;
+          break;
+        case 'Sleeping':
+          yValue = 2;
+          break;
+        case 'Euthymic':
+          yValue = 3;
+          break;
+        case 'Anxious':
+          yValue = 4;
+          break;
+        case 'Agitated':
+          yValue = 5;
+          break;
+        case 'Aggressive':
+          yValue = 6;
+          break;
+        case 'Secluded':
+          yValue = 7;
+          break;
+        default:
+          yValue = 0;
+
+      }
+
+      this.statusDataItem.push({
+        x: new Date(element.ObsTime + 'Z'),
+        y: yValue, notes: element.Notes,
+        loc: element.ObsLocation, obsBy: element.SeenBy, status: element.Status
+      });
+    });
+    // ........
+  }
+
+
+  // create chart
+  async createChart() {
+
+    if (this.statusScatterChart !== undefined) {
+      this.statusScatterChart.destroy();
+    }
+
+    let ctx = document.getElementById('canvas');
+
+
+    if (ctx !== null) {
+      await ctx.remove();
+    }
+    this.chartLoaded = true;
+    this.elStatus.nativeElement.innerHTML =
+      ' <div [hidden]="!chartLoaded" style="height:300px;width:900px;"><canvas id="canvas">{{scatterChart}}</canvas></div>';
+    // '<div [hidden]="chartLoaded" >No Data Loaded!</div>';
+
+    ctx = await document.getElementById('canvas');
+
+
+    if (ctx) { // ensure canvas is ready
+      const self = this;
+      this.chartLoaded = false;
+      this.statusScatterChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: 'Observation',
+            pointBackgroundColor: 'red',
+            pointRadius: 5,
+            data: this.statusDataItem
+          }]
+        }
+        ,
+        options: {
+          tooltips: {
+            callbacks: {
+              label(tooltipItem, data) {
+                const label = data.datasets[0].data[tooltipItem.index].loc;
+                return label;
+              },
+              afterLabel(tooltipItem, data) {
+                let footer = '';
+                footer = data.datasets[0].data[tooltipItem.index].notes;
+                if (footer == null) {
+                  footer = 'No notes available';
+                }
+                if (footer.length > 40) {
+                  footer = footer.substring(0, 40) + '...';
+                }
+                return [footer];
+              }
+
+            }
+          },
+          legend: {
+            display: false,
+          },
+          scales: {
+            yAxes: [{
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Status'
+              },
+              ticks: {
+                min: 0,
+                max: 7,
+                stepSize: 1,
+                suggestedMin: 0,
+                suggestedMax: 6.1,
+                callback(label, index, labels) {
+                  switch (label) {
+                    case 0:
+                      return '';
+                    case 1:
+                      return 'On Leave';
+                    case 2:
+                      return 'Sleeping';
+                    case 3:
+                      return 'Euthymic';
+                    case 4:
+                      return 'Anxious';
+                    case 5:
+                      return 'Agitated';
+                    case 6:
+                      return 'Aggressive';
+                    case 7:
+                      return 'Secluded';
+                  }
+                }
+              },
+              gridLines: {
+                display: true
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                minRotation: 45,
+                suggestedMax: new Date(Date.now()),
+              },
+              type: 'time',
+              time: {
+                displayFormats: {
+                  millisecond: 'MMM DD HH:mm',
+                  second: 'MMM DD HH:mm',
+                  minute: 'MMM DD HH:mm',
+                  hour: 'MMM DD HH:mm',
+                  day: 'MMM DD HH:mm',
+                  week: 'MMM DD HH:mm',
+                  month: 'MMM DD HH:mm',
+                  quarter: 'MMM DD HH:mm',
+                  year: 'MMM DD HH:mm',
+                }
+              }
+            }]
+
+          },
+          onClick(e) {
+            const element = this.getElementAtEvent(e);
+            if (element.length) {
+              self.showDialog(element[0]._chart.tooltip._data.datasets[0].data[element[0]._index]);
+            }
+          },
+        }
+
+      });
+
+    }
+
+    this.chartLoaded = true;
+    return true;
+
+  }
+
+  // ------ location chart setup -------------------------
+
+  setLocChartData(data: Obs[]) {
+    this.locDataItem = [];
+    if (data === null || data === undefined) {
+      this.locChartLoaded = false;
+      return;
+    }
+
+    let yValue = 0;
+    data.forEach(element => {
+      switch (element.ObsLocation) {
+        case 'Bedroom':
+          yValue = 0;
+          break;
+        case 'Bathroom':
+          yValue = 1;
+          break;
+        case 'Communinal Area':
+          yValue = 2;
+          break;
+        case 'Activity Room':
+          yValue = 3;
+          break;
+        case 'Garden':
+          yValue = 4;
+          break;
+        case 'Off Ward':
+          yValue = 5;
+          break;
+        case 'On Leave':
+          yValue = 6;
+      }
+
+      this.locDataItem.push({
+        x: new Date(element.ObsTime + 'Z'),
+        y: yValue, notes: element.Notes, status: element.Status, obsBy: element.SeenBy, loc: element.ObsLocation
+      });
+    });
+
+  }
+  // create chart
+  async createLocChart() {
+
+    if (this.locScatterChart !== undefined) {
+      this.locScatterChart.destroy();
+    }
+
+    let ctx = document.getElementById('loc-canvas');
+
+    if (ctx !== null) {
+      await ctx.remove();
+    }
+
+    this.elLoc.nativeElement.innerHTML =
+      '<div [hidden]="!chartLoaded" style="height:300px;width:900px"><canvas id="loc-canvas">{{locScatterChart}}</canvas></div>';
+    // '<div [hidden]="chartLoaded" >No Data Loaded!</div>';
+
+    ctx = await document.getElementById('loc-canvas');
+
+
+    if (ctx) { // ensure canvas is ready
+      const self = this;
+
+      this.locChartLoaded = false;
+      const locScatterChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: 'Observation',
+            pointBackgroundColor: 'red',
+            pointRadius: 5,
+            data: this.locDataItem
+          }]
+        },
+        options: {
+          tooltips: {
+            callbacks: {
+              label(tooltipItem, data) {
+                const label = data.datasets[0].data[tooltipItem.index].status;
+                return label;
+              },
+              afterLabel(tooltipItem, data) {
+                let footer = '';
+                footer = data.datasets[0].data[tooltipItem.index].notes;
+                if (footer == null) {
+                  footer = 'No notes available';
+                }
+                if (footer.length > 40) {
+                  footer = footer.substring(0, 40) + '...';
+                }
+                return [footer];
+              }
+            }
+          },
+          legend: {
+            display: false,
+          },
+          scales: {
+            yAxes: [{
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Location'
+              },
+              ticks: {
+                min: 0,
+                max: 7,
+                stepSize: 1,
+                suggestedMin: 0,
+                suggestedMax: 6.1,
+                callback(label, index, labels) {
+                  switch (label) {
+                    case 0:
+                      return 'Bedroom';
+                    case 1:
+                      return 'Bathroom';
+                    case 2:
+                      return 'Communinal Area';
+                    case 3:
+                      return 'Activity Room';
+                    case 4:
+                      return 'Garden';
+                    case 5:
+                      return 'Off Ward';
+                    case 6:
+                      return 'On Leave';
+                  }
+                }
+              },
+              gridLines: {
+                display: true
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                minRotation: 45,
+                suggestedMax: new Date(Date.now()),
+              },
+              type: 'time',
+              time: {
+                displayFormats: {
+                  millisecond: 'MMM DD HH:mm',
+                  second: 'MMM DD HH:mm',
+                  minute: 'MMM DD HH:mm',
+                  hour: 'MMM DD HH:mm',
+                  day: 'MMM DD HH:mm',
+                  week: 'MMM DD HH:mm',
+                  month: 'MMM DD HH:mm',
+                  quarter: 'MMM DD HH:mm',
+                  year: 'MMM DD HH:mm',
+                }
+              }
+            }]
+
+          },
+          onClick(e) {
+            const element = this.getElementAtEvent(e);
+            if (element.length) {
+              self.showDialog(element[0]._chart.tooltip._data.datasets[0].data[element[0]._index]);
+            }
+          },
+        }
+      });
+    }
+    this.locChartLoaded = true;
+    return true;
+  }
+
+  showDialog(data) {
+    console.log(data);
+    this.mStatus = data.status;
+    this.mLocation = data.loc;
+    this.mNotes = data.notes;
+    this.mObsBy = data.obsBy;
+    this.mDateTime = data.x;
+    this.modalDisplay = true;
+
+  }
+
 
 }

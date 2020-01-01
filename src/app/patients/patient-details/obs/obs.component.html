@@ -120,11 +120,13 @@
 </div>
 
   <!-- Obs behaviour chart goes here -->
-<div  *ngIf="chartType === 'obsChart'">
-
+<div class="chart1" [hidden]="!showStatusChart" >
+  <h4>Status Chart</h4>
+  <div class="placeholder" #placeholder1></div>
 </div> 
 
 <!-- Location Chart goes here -->
-<div *ngIf="chartType =='obsLocation'">
-  
+<div [hidden]="!showLocChart">
+  <h4>Location Chart</h4>
+  <div #placeholder2></div>
 </div>
