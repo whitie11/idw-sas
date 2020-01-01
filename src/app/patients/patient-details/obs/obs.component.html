@@ -106,7 +106,7 @@
         </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="obsTableColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: obsTableColumns;" ></tr>
+      <tr mat-row *matRowDef="let row; columns: obsTableColumns;" (click)="showDialog1(row)"></tr>
     </table>
   
     <!-- <mat-paginator #paginator

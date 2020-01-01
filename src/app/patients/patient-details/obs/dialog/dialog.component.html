@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Observation Details</h2>
+<mat-dialog-content>
+    <div>
+        <table cellpadding="10">
+          <tr>
+            <td align="right">Status:</td>
+            <td>  {{data.status}}</td>
+          </tr>
+          <tr>
+            <td align="right">Location:</td>
+            <td>{{data.loc}} </td>
+          </tr>
+          <tr>
+            <td align="right">Seen by:</td>
+            <td>{{data.obsBy}} </td>
+          </tr>
+          <tr>
+            <td align="right">Time:</td>
+            <td>{{data.x | date: 'HH:mm'}} </td>
+          </tr>
+          <tr>
+            <td align="right">Date:</td>
+            <td>{{data.x| date: 'dd/MM/yy'}} </td>
+          </tr>
+          <tr>
+            <td align="right">Notes:</td>
+            <td>{{data.notes}} </td>
+          </tr>
+        </table>
+      </div>
+   
+   
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

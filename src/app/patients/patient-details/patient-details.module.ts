@@ -10,9 +10,20 @@ import { LeaveComponent } from './leave/leave.component';
 import { VisitorsComponent } from './visitors/visitors.component';
 import { PropertyComponent } from './property/property.component';
 import { RestrictedComponent } from './restricted/restricted.component';
+import { DialogComponent } from './obs/dialog/dialog.component';
 
 @NgModule({
-  declarations: [PatientDetailsComponent, ObsComponent, LeaveComponent, VisitorsComponent, PropertyComponent, RestrictedComponent],
+  declarations: 
+  [
+    PatientDetailsComponent,
+    ObsComponent,
+    LeaveComponent,
+    VisitorsComponent,
+    PropertyComponent,
+    RestrictedComponent,
+    DialogComponent
+  ],
+  entryComponents: [DialogComponent],
   imports: [
     CommonModule,
     PatientDetailsRoutingModule,

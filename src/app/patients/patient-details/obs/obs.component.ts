@@ -19,6 +19,8 @@ import { Obs } from 'src/app/models/obs';
 import { dataItem } from '../../../models/data-item';
 import { Chart } from 'chart.js';
 import { ObservationService } from 'src/app/services/observation.service';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from './dialog/dialog.component';
 
 const moment = _rollupMoment || _moment;
 
@@ -91,7 +93,7 @@ export class ObsComponent implements OnInit {
 
 
 
-  constructor(private obsService: ObservationService, private store: Store<State>) {
+  constructor(private obsService: ObservationService, private store: Store<State>, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -516,16 +518,20 @@ export class ObsComponent implements OnInit {
     return true;
   }
 
-  showDialog(data) {
-    console.log(data);
-    this.mStatus = data.status;
-    this.mLocation = data.loc;
-    this.mNotes = data.notes;
-    this.mObsBy = data.obsBy;
-    this.mDateTime = data.x;
-    this.modalDisplay = true;
-
+  showDialog(data: dataItem) {
+    this.dialog.open(DialogComponent, { data: data })
   }
 
+  showDialog1(obs: Obs) {
+    const data: dataItem = {
+      status: obs.Status,
+      loc: obs.ObsLocation,
+      obsBy: obs.SeenBy,
+      x: obs.ObsTime,
+      notes: obs.Notes,
+      y: null
+    };
+    this.dialog.open(DialogComponent, { data: data })
+  }
 
 }
