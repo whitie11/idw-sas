@@ -4,7 +4,9 @@ export enum PatientActionTypes {
   LOAD_PTS = '[pts] Load Pts',
   LOAD_PTS_SUCCESS = '[pts] Load Patients Succcess',
   LOAD_PTS_FAILURE = '[pts] Load Patients Failure',
-  SELECT_PT = '[pts] Select patient'
+  SELECT_PT = '[pts] Select patient',
+  SELECT_PT_SUCCESS = '[pts] Select patient Success',
+  SELECT_PT_FAILURE = '[pts] Select patient Failure',
 }
 
 export class LoadPts implements Action {
@@ -31,4 +33,5 @@ export type All =
   | LoadPts
   | LoadPtsSuccess
   | LoadPtsFailure
-  | SelectPt;
+  | SelectPt
+  ;

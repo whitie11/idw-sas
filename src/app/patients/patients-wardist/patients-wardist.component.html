@@ -1,7 +1,9 @@
 <h3>Patient List: {{wardName$ | async}} </h3>
-
-<div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
+ <div *ngIf="loading">
+    <mat-spinner style="margin:0 auto;" ></mat-spinner>
+  </div>
+<div class="mat-elevation-z8" [hidden]="loading">
+  <table mat-table class="full-width-table" matSort aria-label="Elements" >
     <!-- Id Column -->
     <ng-container matColumnDef="PatientId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
@@ -80,6 +82,7 @@
       [pageSize]="50"
       [pageSizeOptions]="[25, 50, 100, 250]">
   </mat-paginator> -->
+
 </div>
 
-<h3 *ngIf="selectedPatient">You selected {{selectedPatient.FirstName}}</h3>
+

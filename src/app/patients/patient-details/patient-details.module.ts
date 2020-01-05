@@ -13,7 +13,7 @@ import { RestrictedComponent } from './restricted/restricted.component';
 import { DialogComponent } from './obs/dialog/dialog.component';
 
 @NgModule({
-  declarations: 
+  declarations:
   [
     PatientDetailsComponent,
     ObsComponent,

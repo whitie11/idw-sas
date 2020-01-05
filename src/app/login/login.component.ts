@@ -15,7 +15,7 @@ import { LogIn } from '../store/actions/auth.actions';
 })
 export class LoginComponent implements OnInit {
   formdata: FormGroup;
-  x: any;
+  waiting: boolean;
   user: User = new User();
   getState: Observable<any>;
   errorMessage: string | null;
@@ -36,11 +36,12 @@ export class LoginComponent implements OnInit {
       this.errorMessage = state.errorMessage;
     });
 
+    this.store.subscribe(state => (this.waiting = state.auth.waiting) );
+    
     this.formdata = new FormGroup({
          userName: new FormControl('Ian.White', [Validators.required]),
          password: new FormControl('P@ssw0rd1', [Validators.required]),
          wardName: new FormControl('Keats', [Validators.required])
-
       });
   }
 

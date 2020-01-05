@@ -3,7 +3,7 @@ import { createFeatureSelector, createSelector} from '@ngrx/store';
 
 
 export interface AppState {
-  authState: auth.State;
+  auth: auth.State;
 }
 
 export const reducers = {

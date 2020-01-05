@@ -35,3 +35,6 @@
       <button mat-raised-button (click)="login()" color="primary">LOGIN</button>
    </mat-card-actions> -->
 </mat-card>
+<div *ngIf="waiting">
+    <mat-spinner style="margin:0 auto;" ></mat-spinner>
+  </div>

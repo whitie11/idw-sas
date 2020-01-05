@@ -6,6 +6,7 @@ export interface State {
   user: User | null;
   errorMessage: string | null;
   selectedWard: string | '';
+  waiting: boolean;
 }
 
 const initialState: State = {
@@ -15,11 +16,18 @@ const initialState: State = {
     username: 'Not defined'
   },
   errorMessage: null,
-  selectedWard: ''
+  selectedWard: '',
+  waiting: false
 };
 
 export function reducer(state = initialState, action: All): State {
   switch (action.type) {
+    case AuthActionTypes.LOGIN: {
+      return {
+        ...state,
+        waiting: true
+      };
+    }
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {
         ...state,
@@ -29,14 +37,16 @@ export function reducer(state = initialState, action: All): State {
           username: action.payload.username
         },
         errorMessage: null,
-        selectedWard: action.payload.wardName
+        selectedWard: action.payload.wardName,
+        waiting: false
       };
     }
     case AuthActionTypes.LOGIN_FAILURE: {
       return {
         ...state,
         isAuthenticated: false,
-        errorMessage: 'Incorrect email and/or password.'
+        errorMessage: 'Incorrect email and/or password.',
+        waiting: false
       };
     }
     case AuthActionTypes.LOGOUT: {
@@ -45,7 +55,8 @@ export function reducer(state = initialState, action: All): State {
     case AuthActionTypes.CHANGE_WARD: {
       return {
         ...state,
-        selectedWard: action.payload
+        selectedWard: action.payload,
+        waiting: false
       };
     }
     default: {

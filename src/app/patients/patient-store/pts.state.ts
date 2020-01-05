@@ -5,16 +5,16 @@ import * as Auth from '../../store/reducers/auth.reducers';
 // import { MatFormFieldDefaultOptions } from '@angular/material';
 
 export interface PtsState {
-  ptsState: Pts.State;
+  pts: Pts.State;
 }
 
 export interface State extends fromRoot.AppState {
-  ptsState: PtsState;
+  pts: Pts.State;
 
 }
 
 export const PtReducers: ActionReducerMap<PtsState> = {
-  ptsState: Pts.PtReducer,
+  pts: Pts.PtReducer,
 };
 
 

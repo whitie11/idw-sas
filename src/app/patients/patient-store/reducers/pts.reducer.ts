@@ -8,6 +8,8 @@ export interface State {
   test: string;
   patients: Patient[];
   selectedPt: Patient;
+  loading: boolean;
+  loaded: boolean;
 }
 
 const initialState: State = {
@@ -22,10 +24,10 @@ const initialState: State = {
       Birthdate: null,
       WardName: '',
       Leave: null,
-      LastSeen:  null,
+      LastSeen: null,
     },
   ],
-  selectedPt:  {
+  selectedPt: {
     PatientId: null,
     FirstName: '',
     MidName: '',
@@ -34,32 +36,42 @@ const initialState: State = {
     Birthdate: null,
     WardName: '',
     Leave: null,
-    LastSeen:  null,
-  }
+    LastSeen: null,
+  },
+  loaded: false,
+  loading: false
 };
 
 export function PtReducer(state = initialState, action: All): State {
   switch (action.type) {
+    case PatientActionTypes.LOAD_PTS: {
+      return {
+        ...state,
+        loaded: false,
+        loading: true
+      };
+    }
     case PatientActionTypes.LOAD_PTS_SUCCESS: {
       return {
         ...state,
-        patients: action.payload
+        patients: action.payload,
+        loaded: true,
+        loading: false
       };
     }
     case PatientActionTypes.LOAD_PTS_FAILURE: {
       return {
         ...state,
-
+        loaded: false,
+        loading: false
       };
     }
     case PatientActionTypes.SELECT_PT: {
       return {
         ...state,
-        selectedPt: action.payload
+        selectedPt: action.payload,
       };
     }
-
-
     default: {
       return state;
     }

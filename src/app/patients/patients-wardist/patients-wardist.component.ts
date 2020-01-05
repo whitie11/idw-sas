@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+
 // import { PatientsWardistDataSource, PatientsWardistItem } from './patients-wardist-datasource';
 
 import { Store } from '@ngrx/store';
@@ -30,6 +31,9 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
   wardList: Patient[];
   dataSource = new MatTableDataSource(this.wardList);
   selectedPatient: Patient;
+  loading = false;
+  loaded = true;
+
   constructor(private store: Store<State>, private router: Router) {
 
   }
@@ -61,14 +65,17 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
       this.store.dispatch(new LoadPts(ward));
     });
 
-    this.wardList$ = this.store.select(getPtsWard);
+    this.store.subscribe(state => (this.loading = state.pts.loading));
+    this.store.subscribe(state => (this.loaded = state.pts.loaded));
 
+
+    this.wardList$ = this.store.select(getPtsWard);
     this.wardList$.subscribe((list) => {
       console.log('Wardlist = ' + list);
       this.dataSource = new MatTableDataSource(list);
       this.dataSource.sort = this.sort;
       this.table.dataSource = this.dataSource;
-     // this.table.renderRows();
+      // this.table.renderRows();
     }
     );
 
@@ -120,6 +127,6 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
     this.store.dispatch(new SelectPt(pt));
 
     this.router.navigateByUrl('/patients/details');
-   // this.router.navigate(['/patients/details'], { queryParams: pt });
+    // this.router.navigate(['/patients/details'], { queryParams: pt });
   }
 }
