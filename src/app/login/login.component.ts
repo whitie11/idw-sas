@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     });
 
     this.store.subscribe(state => (this.waiting = state.auth.waiting) );
-    
+
     this.formdata = new FormGroup({
          userName: new FormControl('Ian.White', [Validators.required]),
          password: new FormControl('P@ssw0rd1', [Validators.required]),

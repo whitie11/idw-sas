@@ -50,7 +50,7 @@ export class ObsComponent implements OnInit {
   selectedPatient: Patient;
   selectedPt$: Observable<Patient>;
 
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator2: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort2: MatSort;
   @ViewChild(MatTable, { static: true }) table2: MatTable<Obs>;
 
@@ -106,6 +106,7 @@ export class ObsComponent implements OnInit {
     this.obsStart = moment().subtract('1', 'days');
     this.obsEnd = moment();
     this.getData();
+    this.dataSource.paginator = this.paginator2;
   }
 
   public getData() {
@@ -117,6 +118,7 @@ export class ObsComponent implements OnInit {
 
       // this.obs1 = o;
       this.dataSource = new MatTableDataSource(o);
+      this.dataSource.paginator = this.paginator2;
       // this.dataSource.sort = this.sort2;
       // this.table2.dataSource = this.dataSource;
       this.setChartData(o);
@@ -150,18 +152,17 @@ export class ObsComponent implements OnInit {
   public onRangeChange(val: string) {
     this.chartRange = val;
     this.obsEnd = moment();
-    if (val == 'Day') { this.obsStart = moment().subtract('1', 'days') }
-    if (val == 'Week') { this.obsStart = moment().subtract('7', 'days') }
-    if (val == 'Month') { this.obsStart = moment().subtract('1', 'months') }
-    if (val == 'All') { this.obsStart = moment('2019-01-01') }
+    if (val === 'Day') { this.obsStart = moment().subtract('1', 'days'); }
+    if (val === 'Week') { this.obsStart = moment().subtract('7', 'days'); }
+    if (val === 'Month') { this.obsStart = moment().subtract('1', 'months'); }
+    if (val === 'All') { this.obsStart = moment('2019-01-01'); }
     this.getData();
   }
 
   datesChanged(type: string, event: MatDatepickerInputEvent<Date>) {
-    if (type == 'start') {
+    if (type === 'start') {
       this.obsStart = event.value;
-    }
-    else if (type == 'end') { this.obsEnd = event.value; }
+    } else if (type === 'end') { this.obsEnd = event.value; }
 
     this.getData();
   }
@@ -519,7 +520,7 @@ export class ObsComponent implements OnInit {
   }
 
   showDialog(data: dataItem) {
-    this.dialog.open(DialogComponent, { data: data })
+    this.dialog.open(DialogComponent, { data });
   }
 
   showDialog1(obs: Obs) {
@@ -531,7 +532,7 @@ export class ObsComponent implements OnInit {
       notes: obs.Notes,
       y: null
     };
-    this.dialog.open(DialogComponent, { data: data })
+    this.dialog.open(DialogComponent, { data });
   }
 
 }

@@ -55,7 +55,7 @@
 
 </div>
 <!-- output:  {{chartType}} {{chartRange}} {{obsStart}} -->
-<div *ngIf="chartType =='Table'">
+<div [hidden]="chartType !='Table'">
   <!-- Table goes here -->
   <div class="mat-elevation-z8 obsTable">
     <table  mat-table  [dataSource]="dataSource" class="full-width-table" aria-label="Elements">
@@ -109,12 +109,12 @@
       <tr mat-row *matRowDef="let row; columns: obsTableColumns;" (click)="showDialog1(row)"></tr>
     </table>
   
-    <!-- <mat-paginator #paginator
+    <mat-paginator #paginator2
         [length]="dataSource?.data.length"
         [pageIndex]="0"
-        [pageSize]="50"
-        [pageSizeOptions]="[25, 50, 100, 250]">
-    </mat-paginator> -->
+        [pageSize]="8"
+        [pageSizeOptions]="[5, 8, 25]">
+    </mat-paginator> 
   </div>
   
 </div>
