@@ -1,0 +1,27 @@
+.optionsGroup {
+    padding: 0 !important;
+  }
+  
+  .spacer {
+    margin-left: 10px;
+  }
+
+  mat-form-field {
+    width: 130px !important;
+    margin-left: 15px;
+  }
+
+  table {
+    width: 100%;
+  }
+  
+  tr.mat-row, tr.mat-header-row {
+    height: 36px;
+  }
+  
+  .leaveTable {
+    margin-top: 10px;
+    height: 400px;
+    overflow: auto;
+  }
+

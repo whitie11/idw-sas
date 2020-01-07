@@ -27,27 +27,21 @@
       All
     </mat-button-toggle>
     <mat-button-toggle value="Range">
-      Range
+      Custom
     </mat-button-toggle>
   </mat-button-toggle-group>
 
   <span *ngIf="chartRange == 'Range'">
-  <mat-form-field >
-    <input matInput [matDatepicker]=" startDate"
-    placeholder="Start Date" [value]="obsStart" 
-    disabled 
-    formControlName="startDate"
-    (dateChange)="datesChanged('start', $event)">
-    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-    <mat-datepicker #startDate disabled="false"></mat-datepicker>
+    <mat-form-field>
+      <input matInput [matDatepicker]=" startDate" placeholder="Start Date" [value]="obsStart" disabled
+        formControlName="startDate" (dateChange)="datesChanged('start', $event)">
+      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate disabled="false"></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput [matDatepicker]="endDate"
-      placeholder="End Date"
-      [value]="obsEnd" 
-      disabled formControlName="endDate"
-      (dateChange)="datesChanged('end', $event)">
+      <input matInput [matDatepicker]="endDate" placeholder="End Date" [value]="obsEnd" disabled
+        formControlName="endDate" (dateChange)="datesChanged('end', $event)">
       <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
       <mat-datepicker #endDate disabled="false"></mat-datepicker>
     </mat-form-field>
@@ -58,21 +52,21 @@
 <div [hidden]="chartType !='Table'">
   <!-- Table goes here -->
   <div class="mat-elevation-z8 obsTable">
-    <table  mat-table  [dataSource]="dataSource" class="full-width-table" aria-label="Elements">
+    <table mat-table [dataSource]="dataSource" class="full-width-table" aria-label="Elements">
       <!-- Id Column -->
       <!-- <ng-container matColumnDef="ObsId">
         <th mat-header-cell *matHeaderCellDef >Id</th>
         <td mat-cell *matCellDef="let row">{{row.ObsId}}</td>
       </ng-container> -->
 
-  
+
       <!-- Time Column -->
       <ng-container matColumnDef="ObsTime">
-        <th mat-header-cell *matHeaderCellDef >Time last seen</th>
+        <th mat-header-cell *matHeaderCellDef>Time last seen</th>
         <td mat-cell *matCellDef="let row">{{row.ObsTime | date: 'HH:mm dd/MM/yyyy'}}</td>
       </ng-container>
 
-  
+
       <!-- Location Column -->
       <ng-container matColumnDef="ObsLocation">
         <th mat-header-cell *matHeaderCellDef>Location</th>
@@ -80,50 +74,47 @@
           {{row.ObsLocation}}
         </td>
       </ng-container>
-  
-            <!-- Status Column -->
-            <ng-container matColumnDef="Status">
-              <th mat-header-cell *matHeaderCellDef>Status</th>
-              <td mat-cell *matCellDef="let row">
-                {{row.Status}}
-              </td>
-            </ng-container>
-   
-            <!-- SeenBy Column -->
-     <ng-container matColumnDef="SeenBy">
-      <th mat-header-cell *matHeaderCellDef>Seen By</th>
-      <td mat-cell *matCellDef="let row">
-        {{row.SeenBy}}
-      </td>
-    </ng-container>
 
-         <!-- Notes Column -->
-         <ng-container matColumnDef="Notes">
-          <th mat-header-cell *matHeaderCellDef>Comments/ Notes</th>
-          <td mat-cell *matCellDef="let row">
-            {{(row.Notes.length>40)? (row.Notes | slice:0:40)+'...':(row.Notes)}}
-          </td>
-        </ng-container>
+      <!-- Status Column -->
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.Status}}
+        </td>
+      </ng-container>
+
+      <!-- SeenBy Column -->
+      <ng-container matColumnDef="SeenBy">
+        <th mat-header-cell *matHeaderCellDef>Seen By</th>
+        <td mat-cell *matCellDef="let row">
+          {{row.SeenBy}}
+        </td>
+      </ng-container>
+
+      <!-- Notes Column -->
+      <ng-container matColumnDef="Notes">
+        <th mat-header-cell *matHeaderCellDef>Comments/ Notes</th>
+        <td mat-cell *matCellDef="let row">
+          {{(row.Notes.length>40)? (row.Notes | slice:0:40)+'...':(row.Notes)}}
+        </td>
+      </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="obsTableColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: obsTableColumns;" (click)="showDialog1(row)"></tr>
     </table>
+</div>
+    <mat-paginator #paginator2 [length]="dataSource?.data.length" [pageIndex]="0" [pageSize]="8"
+      [pageSizeOptions]="[5, 8, 20]">
+    </mat-paginator>
   
-    <mat-paginator #paginator2
-        [length]="dataSource?.data.length"
-        [pageIndex]="0"
-        [pageSize]="8"
-        [pageSizeOptions]="[5, 8, 25]">
-    </mat-paginator> 
-  </div>
-  
+
 </div>
 
-  <!-- Obs behaviour chart goes here -->
-<div class="chart1" [hidden]="!showStatusChart" >
+<!-- Obs behaviour chart goes here -->
+<div class="chart1" [hidden]="!showStatusChart">
   <h4>Status Chart</h4>
   <div class="placeholder" #placeholder1></div>
-</div> 
+</div>
 
 <!-- Location Chart goes here -->
 <div [hidden]="!showLocChart">
