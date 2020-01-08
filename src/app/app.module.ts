@@ -23,14 +23,16 @@ import { MessagesComponent } from './messages/messages.component';
 import { AuthService } from './services/auth.service';
 import { AuthEffects } from './store/effects/auth.effects';
 import { reducers } from './store/app.state';
-import { TokenInterceptor, ErrorInterceptor } from './services/token.interceptor';
+import { TokenInterceptor} from './services/token.interceptor';
+import { ErrorInterceptor} from './services/error-inteceptor';
 import { RouterModule, CanActivate } from '@angular/router';
 import { AuthGuardService as AuthGuard } from './services/auth-guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SasChecksComponent } from './sas-checks/sas-checks.component';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment'; // Angular CLI environment
+import { environment } from '../environments/environment';
+import { ErrorPageComponent } from './error-page/error-page.component'; // Angular CLI environment
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { environment } from '../environments/environment'; // Angular CLI enviro
     AdminComponent,
     MessagesComponent,
     NotFoundComponent,
-    SasChecksComponent
+    SasChecksComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

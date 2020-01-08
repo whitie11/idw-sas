@@ -1,21 +1,17 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 
-import { AuthService } from './auth.service';
-
 import { Store } from '@ngrx/store';
-
 import * as fromStore from '../store/app.state';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
-    getState: Observable<any>;
+    // getState: Observable<any>;
     isAuthenticated$: Observable<boolean>;
-
+   token: string;
   constructor(
-    public auth: AuthService,
     public router: Router,
     private store: Store<fromStore.AppState>
   ) {
@@ -33,7 +29,11 @@ isAuth.subscribe(authenticated => {
     return false;
   }
 });
-if (!this.auth.getToken()) {
+const token$ = this.store.select(fromStore.getToken);
+token$.subscribe(res => {
+this.token = res;
+} );
+if (this.token == null || this.token.length <= 0) {
       this.router.navigateByUrl('/login');
       return false;
     }

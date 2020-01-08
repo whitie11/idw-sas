@@ -59,6 +59,18 @@ export function reducer(state = initialState, action: All): State {
         waiting: false
       };
     }
+    case AuthActionTypes.SET_ERROR_MESSAGE: {
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
+    }
+    case AuthActionTypes.CLEAR_ERROR_MESSAGE: {
+      return {
+        ...state,
+        errorMessage: '',
+      };
+    }
     default: {
       return state;
     }
@@ -66,5 +78,7 @@ export function reducer(state = initialState, action: All): State {
 }
 
 export const getIsAuth = (state: State) => state.isAuthenticated;
-export const getUsernane = (state: State) => state.user.username;
+export const getUserName = (state: State) => state.user.username;
+export const getUserToken = (state: State) => state.user.token;
 export const getWardName = (state: State) => state.selectedWard;
+export const getErrorMessage = (state: State) => state.errorMessage;

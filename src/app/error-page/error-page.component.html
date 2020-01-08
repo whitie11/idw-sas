@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <img src="../../assets/img/shieldSplash.png" class="logo">
+  <img src="../../assets/img/shieldSplash.png" class="logoR">
+  <div class="message">
+    <h1>Oops! </h1>
+    <h2>Something went wrong</h2>
+    <div class="error">
+    {{errorMessage$ | async}}
+    </div>
+  </div>
+<div class="footer">
+    <button mat-raised-button color="primary" (click)="onClick()">Return to home page</button>
+</div>
+</div>

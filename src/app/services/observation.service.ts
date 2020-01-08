@@ -30,9 +30,9 @@ export class ObservationService {
 
   getObsRange2(patientId: number, dateStart: any, dateEnd: any): Observable<Obs[]> {
     const start = dateStart.format('YYYY-MM-DD');
-    //dateStart.getUTCFullYear() + '-' + (dateStart.getUTCMonth() + 1) + '-' + (dateStart.getUTCDate() + 1);
+    // dateStart.getUTCFullYear() + '-' + (dateStart.getUTCMonth() + 1) + '-' + (dateStart.getUTCDate() + 1);
     const end = dateEnd.format('YYYY-MM-DD');
-    //.getUTCFullYear() + '-' + (dateEnd.getUTCMonth() + 1) + '-' + (dateEnd.getUTCDate() + 1);
+    // .getUTCFullYear() + '-' + (dateEnd.getUTCMonth() + 1) + '-' + (dateEnd.getUTCDate() + 1);
     const url = this.config1.getObsRangeUrl2() + patientId + '/' + start + '/' + end;
 
     this.obs$ = this.http.get<Obs[]>(url).pipe(shareReplay());

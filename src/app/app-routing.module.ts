@@ -9,9 +9,14 @@ import { AuthGuardService } from './services/auth-guard';
 import { MessagesComponent } from './messages/messages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SasChecksComponent } from './sas-checks/sas-checks.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 const routes: Routes = [
+    {
+        path: 'error',
+        component: ErrorPageComponent
+    },
     {
         path: 'login',
         component: WelcomeComponent

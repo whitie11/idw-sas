@@ -15,6 +15,10 @@ const routes: Routes = [
     component: PatientDetailsComponent,
     children: [
       {
+        path: '',
+        component: ObsComponent
+      },
+      {
         path: 'obs',
         component: ObsComponent
       },

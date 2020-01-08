@@ -6,7 +6,9 @@ export enum AuthActionTypes {
   LOGIN_SUCCESS = '[Auth] Login Success',
   LOGIN_FAILURE = '[Auth] Login Failure',
   LOGOUT = '[Auth] Logout',
-  CHANGE_WARD = '[Auth] Change Ward'
+  CHANGE_WARD = '[Auth] Change Ward',
+  SET_ERROR_MESSAGE = '[Auth] Set Error Message',
+  CLEAR_ERROR_MESSAGE = '[Auth] Clear Error Message'
 }
 
 export class LogIn implements Action {
@@ -33,11 +35,24 @@ export class ChangeWard implements Action {
   constructor(public payload: string) {}
 }
 
+export class SetErrorMessage implements Action {
+  readonly type = AuthActionTypes.SET_ERROR_MESSAGE;
+  constructor(public payload: string) {}
+}
+
+export class ClearErrorMessage implements Action {
+  readonly type = AuthActionTypes.CLEAR_ERROR_MESSAGE;
+  constructor() {}
+}
+
 export type All =
   | LogIn
   | LogInSuccess
   | LogInFailure
   | LogOut
-  | ChangeWard;
+  | ChangeWard
+  | SetErrorMessage
+  | ClearErrorMessage
+  ;
 
 

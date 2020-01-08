@@ -116,8 +116,8 @@ export class ObsComponent implements OnInit {
     if (this.obsStart > this.obsEnd) {
       return;
     }
-    this.obsService.getObsRange2(this.selectedPatient.PatientId, this.obsStart, this.obsEnd).subscribe(o => {
-
+    this.obsService.getObsRange2(this.selectedPatient.PatientId, this.obsStart, this.obsEnd)
+    .subscribe(o => {
       // this.obs1 = o;
       this.dataSource = new MatTableDataSource(o);
       this.dataSource.paginator = this.paginator2;
