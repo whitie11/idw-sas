@@ -17,7 +17,7 @@ const initialState: State = {
   },
   errorMessage: null,
   selectedWard: '',
-  waiting: false
+  waiting: false,
 };
 
 export function reducer(state = initialState, action: All): State {
@@ -50,7 +50,17 @@ export function reducer(state = initialState, action: All): State {
       };
     }
     case AuthActionTypes.LOGOUT: {
-      return initialState;
+      return {
+        ...state,
+        isAuthenticated: false,
+        user:
+          {
+            token: '',
+            username: ''
+        },
+        errorMessage: 'logged out',
+        waiting: false,
+      };
     }
     case AuthActionTypes.CHANGE_WARD: {
       return {
@@ -82,3 +92,4 @@ export const getUserName = (state: State) => state.user.username;
 export const getUserToken = (state: State) => state.user.token;
 export const getWardName = (state: State) => state.selectedWard;
 export const getErrorMessage = (state: State) => state.errorMessage;
+

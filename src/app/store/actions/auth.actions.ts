@@ -23,7 +23,7 @@ export class LogInSuccess implements Action {
 
 export class LogInFailure implements Action {
   readonly type = AuthActionTypes.LOGIN_FAILURE;
-  constructor(public payload: any) {}
+
 }
 
 export class LogOut implements Action {
@@ -42,7 +42,6 @@ export class SetErrorMessage implements Action {
 
 export class ClearErrorMessage implements Action {
   readonly type = AuthActionTypes.CLEAR_ERROR_MESSAGE;
-  constructor() {}
 }
 
 export type All =

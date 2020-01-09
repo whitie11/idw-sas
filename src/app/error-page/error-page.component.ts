@@ -22,9 +22,14 @@ export class ErrorPageComponent implements OnInit {
   }
 
 
-  onClick() {
+  onHomeClick() {
     this.store.dispatch(new ClearErrorMessage());
     this.router.navigateByUrl('/home');
+  }
+
+  onLoginClick() {
+    this.store.dispatch(new ClearErrorMessage());
+    this.router.navigateByUrl('/login');
   }
 
 }

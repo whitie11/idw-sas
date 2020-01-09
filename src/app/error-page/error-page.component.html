@@ -5,10 +5,13 @@
     <h1>Oops! </h1>
     <h2>Something went wrong</h2>
     <div class="error">
-    {{errorMessage$ | async}}
+      {{errorMessage$ | async}}
     </div>
   </div>
-<div class="footer">
-    <button mat-raised-button color="primary" (click)="onClick()">Return to home page</button>
-</div>
+  <div class="footer">
+    <button mat-raised-button color="primary" (click)="onHomeClick()">Return to home page</button>
+  </div>
+  <div class="footer1">
+    <button mat-raised-button color="primary" (click)="onLoginClick()">Goto to login page</button>
+  </div>
 </div>

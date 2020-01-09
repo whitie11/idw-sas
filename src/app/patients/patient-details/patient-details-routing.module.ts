@@ -13,30 +13,37 @@ const routes: Routes = [
   {
     path: '',
     component: PatientDetailsComponent,
+    canActivate: [AuthGuardService],
     children: [
-      {
-        path: '',
-        component: ObsComponent
-      },
+      // {
+      //   path: '',
+      //   component: ObsComponent,
+      //   canActivate: [AuthGuardService]
+      // },
       {
         path: 'obs',
-        component: ObsComponent
+        component: ObsComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'leave',
-        component: LeaveComponent
+        component: LeaveComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'property',
-        component: PropertyComponent
+        component: PropertyComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'visitors',
-        component: VisitorsComponent
+        component: VisitorsComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'restricted-items',
-        component: RestrictedComponent
+        component: RestrictedComponent,
+        canActivate: [AuthGuardService]
       }
     ]
   }

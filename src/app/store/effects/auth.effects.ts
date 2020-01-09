@@ -35,30 +35,23 @@ export class AuthEffects {
               return new LogInSuccess({ token: res.access_token, username: payload.username, wardName: payload.wardName });
             }),
             catchError((error) => {
-              return of(new LogInFailure({ error }));
+              return of(new LogInFailure());
             }));
       }));
 
   @Effect({ dispatch: false })
   LogInSuccess: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGIN_SUCCESS),
-    tap((user) => {
-      localStorage.setItem('token', user.payload.token);
+    map(() => {
       this.router.navigateByUrl('/home');
     })
   );
 
   @Effect({ dispatch: false })
-  LogInFailure: Observable<any> = this.actions.pipe(
-    ofType(AuthActionTypes.LOGIN_FAILURE)
-  );
-
-  @Effect({ dispatch: false })
   LogOut: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGOUT),
-    tap((user) => {
-      localStorage.removeItem('token');
-      this.router.navigateByUrl('/login');
+    map(() => {
+   this.router.navigateByUrl('/login');
     })
   );
 }

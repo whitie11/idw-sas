@@ -4,10 +4,12 @@
     justify-items: center;
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 3fr 3fr 1fr 1fr;
   
     grid-template-areas:   "logo message logoR"
-                          "logo footer logoR";
+                          "logo error logoR"
+                          "logo footer logoR"
+                          "logo footer1 logoR";
   }
 
   .logo {
@@ -25,8 +27,13 @@
   .footer {
       grid-area: footer;
   }
+  .footer1 {
+    grid-area: footer1;
+}
 
   .error {
+    grid-area: error;
     color: #D8000C;
     background-color: #FFD2D2;
 }
+

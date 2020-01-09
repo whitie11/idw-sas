@@ -26,7 +26,7 @@ export class AuthService {
 
        const url = this.BASE_URL + 'token';
        const result = this.http.post<any>(url, body, {headers});
-       console.log(result);
+    //   console.log(result);
        return  result;
 
     }

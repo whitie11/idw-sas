@@ -69,7 +69,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'ignore' })],
+  imports: [RouterModule.forRoot(routes, {   onSameUrlNavigation: 'ignore' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
