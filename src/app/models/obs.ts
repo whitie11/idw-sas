@@ -7,3 +7,9 @@ export interface Obs {
     SeenBy: string;
     Notes: string;
 }
+
+export interface ObsPayload {
+    patientId: number;
+    obsStart: Date;
+    obsEnd: Date;
+}

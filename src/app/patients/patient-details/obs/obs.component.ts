@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { State, getSelectedPt } from '../../patient-store/pts.state';
+import { PtsState, getSelectedPt, getObsLoading, getObsLoaded, getObs } from '../../patient-store/pts.state';
+import { LoadObs } from '../../patient-store/actions/obs.actions';
 import { Observable } from 'rxjs';
 import { Patient } from 'src/app/models/patient';
 
@@ -17,10 +18,10 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment } from 'moment';
 
-import { Obs } from 'src/app/models/obs';
+import { Obs, ObsPayload } from 'src/app/models/obs';
 import { dataItem } from '../../../models/data-item';
 import { Chart } from 'chart.js';
-import { ObservationService } from 'src/app/services/observation.service';
+// import { ObservationService } from 'src/app/services/observation.service';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
 
@@ -67,12 +68,12 @@ export class ObsComponent implements OnInit {
 
   chartType: string;
   chartRange: string;
-  // public obs1: Obs[];
+  // obsData: Obs[];
   dataSource = new MatTableDataSource();
   public obsStart: any;
   public obsEnd: any;
 
-  dataArray: Obs[];
+  dataArray$: Observable<Obs[]>;
   showTable = true;
   showStatusChart: boolean;
   showLocChart: boolean;
@@ -91,11 +92,12 @@ export class ObsComponent implements OnInit {
   mObsBy: string;
   mDateTime: Date;
 
+loading$: Observable<boolean>;
+loaded$: Observable<boolean>;
 
 
 
-
-  constructor(private obsService: ObservationService, private store: Store<State>, public dialog: MatDialog) {
+  constructor(private store: Store<PtsState>, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -109,6 +111,8 @@ export class ObsComponent implements OnInit {
     this.obsEnd = moment();
     this.getData();
     this.dataSource.paginator = this.paginator2;
+    this.loading$ = this.store.select(getObsLoading);
+    this.loaded$ = this.store.select(getObsLoaded);
   }
 
   public getData() {
@@ -116,18 +120,27 @@ export class ObsComponent implements OnInit {
     if (this.obsStart > this.obsEnd) {
       return;
     }
-    this.obsService.getObsRange2(this.selectedPatient.PatientId, this.obsStart, this.obsEnd)
-    .subscribe(o => {
-      // this.obs1 = o;
-      this.dataSource = new MatTableDataSource(o);
-      this.dataSource.paginator = this.paginator2;
-      // this.dataSource.sort = this.sort2;
-      // this.table2.dataSource = this.dataSource;
-      this.setChartData(o);
-      const test = this.createChart();
-      this.setLocChartData(o);
-      const test2 = this.createLocChart();
-    });
+
+    const obsPayload: ObsPayload = {
+      patientId: this.selectedPatient.PatientId,
+      obsStart: this.obsStart,
+      obsEnd: this.obsEnd
+    };
+    this.store.dispatch(new LoadObs(obsPayload));
+
+
+    this.dataArray$ = this.store.select(getObs);
+    this.dataArray$ .subscribe(o => {
+        // this.obs1 = o;
+        this.dataSource = new MatTableDataSource(o);
+        this.dataSource.paginator = this.paginator2;
+        // this.dataSource.sort = this.sort2;
+        // this.table2.dataSource = this.dataSource;
+        this.setChartData(o);
+        const test = this.createChart();
+        this.setLocChartData(o);
+        const test2 = this.createLocChart();
+      });
   }
 
   public onTypeChange(val: string) {

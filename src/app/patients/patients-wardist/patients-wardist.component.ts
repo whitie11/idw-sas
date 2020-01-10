@@ -3,10 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
-// import { PatientsWardistDataSource, PatientsWardistItem } from './patients-wardist-datasource';
-
 import { Store } from '@ngrx/store';
-import { selectPtsState, PtsState, getWardName, State, getPtsWard } from '../patient-store/pts.state';
+import { selectPtsState, PtsState, getWardName, getPtsWard } from '../patient-store/pts.state';
 import { Observable } from 'rxjs';
 import { LoadPts, SelectPt } from '../patient-store/actions/pts.actions';
 import { Patient } from 'src/app/models/patient';
@@ -33,8 +31,8 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
   selectedPatient: Patient;
   loading = false;
   loaded = true;
-
-  constructor(private store: Store<State>, private router: Router) {
+test = '';
+  constructor(private store: Store<PtsState>, private router: Router) {
 
   }
 

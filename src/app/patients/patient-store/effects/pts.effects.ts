@@ -14,10 +14,7 @@ import {
 
 @Injectable()
 export class PtsEffects {
-
-
   constructor(private actions: Actions, private ptService: PatientService) { }
-
 
   @Effect()
   LoadPts: Observable<any> = this.actions

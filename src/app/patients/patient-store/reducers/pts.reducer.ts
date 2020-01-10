@@ -56,6 +56,7 @@ export function PtReducer(state = initialState, action: All): State {
 
 export const getPatients = (state: State) => state.patients;
 export const getSelectePt = (state: State) => state.selectedPt;
-
+export const getLoading = (state: State) => state.loading;
+export const getLoaded = (state: State) => state.loaded;
 
 

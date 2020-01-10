@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectPtsState, PtsState, getWardName, State, getPtsWard, getSelectedPt } from '../patient-store/pts.state';
+import { selectPtsState, PtsState, getWardName, getPtsWard, getSelectedPt} from '../patient-store/pts.state';
 import { Observable } from 'rxjs';
 import { Patient } from 'src/app/models/patient';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -55,7 +55,7 @@ export class PatientDetailsComponent implements OnInit {
   ];
 
 
-  constructor(private store: Store<State>, private router: Router, private route: ActivatedRoute) { }
+  constructor(private store: Store<PtsState>, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.selectedPt$ = this.store.select(getSelectedPt);

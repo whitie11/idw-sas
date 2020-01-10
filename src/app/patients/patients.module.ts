@@ -7,9 +7,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../services/token.interceptor';
 import { PatientsRoutingModule } from './patients-routing.module';
 import { StoreModule } from '@ngrx/store';
-import {PtReducer } from './patient-store/reducers/pts.reducer';
+import { PtReducers } from './patient-store/pts.state';
 import { EffectsModule } from '@ngrx/effects';
-import { PtsEffects } from './patient-store/effects/pts.effects';
+import { effects } from './patient-store/effects';
 import { PatientsWardistComponent } from './patients-wardist/patients-wardist.component';
 import { MaterialModule } from '../modules/material.module';
 
@@ -21,8 +21,8 @@ import { MaterialModule } from '../modules/material.module';
   imports: [
     CommonModule,
     PatientsRoutingModule,
-    StoreModule.forFeature('pts', PtReducer),
-    EffectsModule.forFeature([PtsEffects]),
+    StoreModule.forFeature('patients', PtReducers),
+    EffectsModule.forFeature(effects),
     MaterialModule,
   ],
 
