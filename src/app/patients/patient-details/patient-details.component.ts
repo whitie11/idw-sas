@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getTest, selectPtsState, PtsState, getWardName, State, getPtsWard, getSelectedPt } from '../patient-store/pts.state';
+import { selectPtsState, PtsState, getWardName, State, getPtsWard, getSelectedPt } from '../patient-store/pts.state';
 import { Observable } from 'rxjs';
 import { Patient } from 'src/app/models/patient';
 import { Router, ActivatedRoute } from '@angular/router';

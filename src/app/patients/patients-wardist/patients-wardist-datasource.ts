@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 import { Store } from '@ngrx/store';
-import { getTest, selectPtsState, PtsState, getWardName, State, getPtsWard} from '../patient-store/pts.state';
+import { selectPtsState, PtsState, getWardName, State, getPtsWard} from '../patient-store/pts.state';
 // import { Observable } from 'rxjs';
 import { LoadPts } from '../patient-store/actions/pts.actions';
 import { Patient } from 'src/app/models/patient';

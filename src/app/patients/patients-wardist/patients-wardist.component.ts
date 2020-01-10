@@ -6,7 +6,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 // import { PatientsWardistDataSource, PatientsWardistItem } from './patients-wardist-datasource';
 
 import { Store } from '@ngrx/store';
-import { getTest, selectPtsState, PtsState, getWardName, State, getPtsWard } from '../patient-store/pts.state';
+import { selectPtsState, PtsState, getWardName, State, getPtsWard } from '../patient-store/pts.state';
 import { Observable } from 'rxjs';
 import { LoadPts, SelectPt } from '../patient-store/actions/pts.actions';
 import { Patient } from 'src/app/models/patient';
@@ -67,7 +67,6 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
 
     this.store.subscribe(state => (this.loading = state.pts.loading));
     this.store.subscribe(state => (this.loaded = state.pts.loaded));
-
 
     this.wardList$ = this.store.select(getPtsWard);
     this.wardList$.subscribe((list) => {
