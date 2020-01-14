@@ -1,8 +1,8 @@
 <h3>Patient List: {{wardName$ | async}} </h3>
- <div *ngIf="loading">
+ <div *ngIf="loading$ | async">
     <mat-spinner style="margin:0 auto;" ></mat-spinner>
   </div>
-<div class="mat-elevation-z8" [hidden]="loading">
+<div class="mat-elevation-z8" [hidden]="loading$ | async">
   <table mat-table class="full-width-table" matSort aria-label="Elements" >
     <!-- Id Column -->
     <ng-container matColumnDef="PatientId">

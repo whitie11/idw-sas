@@ -32,7 +32,8 @@ import { SasChecksComponent } from './sas-checks/sas-checks.component';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { ErrorPageComponent } from './error-page/error-page.component'; // Angular CLI environment
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { LogoutComponent } from './logout/logout.component'; // Angular CLI environment
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ErrorPageComponent } from './error-page/error-page.component'; // Angul
     MessagesComponent,
     NotFoundComponent,
     SasChecksComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

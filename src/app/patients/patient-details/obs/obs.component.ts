@@ -92,10 +92,8 @@ export class ObsComponent implements OnInit {
   mObsBy: string;
   mDateTime: Date;
 
-loading$: Observable<boolean>;
-loaded$: Observable<boolean>;
-
-
+  loading$ = this.store.select(getObsLoading);
+  loaded$ = this.store.select(getObsLoaded);
 
   constructor(private store: Store<PtsState>, public dialog: MatDialog) {
   }
@@ -111,8 +109,7 @@ loaded$: Observable<boolean>;
     this.obsEnd = moment();
     this.getData();
     this.dataSource.paginator = this.paginator2;
-    this.loading$ = this.store.select(getObsLoading);
-    this.loaded$ = this.store.select(getObsLoaded);
+
   }
 
   public getData() {
@@ -243,9 +240,13 @@ loaded$: Observable<boolean>;
       await ctx.remove();
     }
     this.chartLoaded = true;
-    this.elStatus.nativeElement.innerHTML =
-      ' <div [hidden]="!chartLoaded" style="height:300px;width:900px;"><canvas id="canvas">{{scatterChart}}</canvas></div>';
+
+    if (this.elStatus) {
+        this.elStatus.nativeElement.innerHTML =
+      ' <div [hidden]="!chartLoaded" style="height:400px;width:800px;"><canvas id="canvas">{{scatterChart}}</canvas></div>';
     // '<div [hidden]="chartLoaded" >No Data Loaded!</div>';
+    }
+
 
     ctx = await document.getElementById('canvas');
 
@@ -265,6 +266,8 @@ loaded$: Observable<boolean>;
         }
         ,
         options: {
+          maintainAspectRatio: false,
+          responsive: true,
           tooltips: {
             callbacks: {
               label(tooltipItem, data) {
@@ -420,7 +423,7 @@ loaded$: Observable<boolean>;
     }
 
     this.elLoc.nativeElement.innerHTML =
-      '<div [hidden]="!chartLoaded" style="height:300px;width:900px"><canvas id="loc-canvas">{{locScatterChart}}</canvas></div>';
+      '<div [hidden]="!chartLoaded" style="height:400px;width:800px"><canvas id="loc-canvas">{{locScatterChart}}</canvas></div>';
     // '<div [hidden]="chartLoaded" >No Data Loaded!</div>';
 
     ctx = await document.getElementById('loc-canvas');

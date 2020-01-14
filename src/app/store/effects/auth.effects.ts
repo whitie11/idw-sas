@@ -51,7 +51,7 @@ export class AuthEffects {
   LogOut: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGOUT),
     map(() => {
-   this.router.navigateByUrl('/login');
+   this.router.navigateByUrl('/login', {replaceUrl: true});
     })
   );
 }

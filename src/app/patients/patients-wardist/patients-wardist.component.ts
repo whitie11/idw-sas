@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 
 import { Store } from '@ngrx/store';
-import { selectPtsState, PtsState, getWardName, getPtsWard } from '../patient-store/pts.state';
+import { selectPtsState, PtsState, getWardName, getPtsWard, getPtsLoaded, getPtsLoading } from '../patient-store/pts.state';
 import { Observable } from 'rxjs';
 import { LoadPts, SelectPt } from '../patient-store/actions/pts.actions';
 import { Patient } from 'src/app/models/patient';
@@ -29,9 +29,9 @@ export class PatientsWardistComponent implements AfterViewInit, OnInit {
   wardList: Patient[];
   dataSource = new MatTableDataSource(this.wardList);
   selectedPatient: Patient;
-  loading = false;
-  loaded = true;
-test = '';
+  loading$ = this.store.select(getPtsLoading);
+  loaded$ = this.store.select(getPtsLoaded);
+  test = '';
   constructor(private store: Store<PtsState>, private router: Router) {
 
   }
@@ -62,9 +62,6 @@ test = '';
       this.selectedWardName = ward;
       this.store.dispatch(new LoadPts(ward));
     });
-
-    this.store.subscribe(state => (this.loading = state.pts.loading));
-    this.store.subscribe(state => (this.loaded = state.pts.loaded));
 
     this.wardList$ = this.store.select(getPtsWard);
     this.wardList$.subscribe((list) => {

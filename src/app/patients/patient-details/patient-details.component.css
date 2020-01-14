@@ -2,10 +2,10 @@
   display: grid;
   height: 90vh;
   grid-template-columns: 200px 1fr;
-  grid-template-rows: 30px 1fr 20px;
+  grid-template-rows: 30px auto 20px;
 
-  grid-template-areas:   "sidebar content"
-                        "sidebar content"
+  grid-template-areas:   "sidebar content1"
+                        "sidebar content1"
                         "footer footer";
 }
 
@@ -37,7 +37,7 @@ margin-top: 15px;
 }
 
 .detail-main {
-    grid-area: content;
+    grid-area: content1;
   /* background-color: aquamarine; */
   padding: 10px;
 }

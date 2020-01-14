@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -10,6 +10,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SasChecksComponent } from './sas-checks/sas-checks.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 const routes: Routes = [
@@ -21,36 +22,39 @@ const routes: Routes = [
         path: 'login',
         component: WelcomeComponent
     },
-
+    {
+        path: 'logout',
+        component: LogoutComponent
+    },
     {
         path: 'admin',
         component: AdminComponent,
-        canActivate : [AuthGuardService]
+        canActivate: [AuthGuardService]
     },
     {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate : [AuthGuardService]
+        canActivate: [AuthGuardService]
     },
     {
         path: 'home',
         component: HomeComponent,
-        canActivate : [AuthGuardService]
+        canActivate: [AuthGuardService]
     },
     {
         path: 'messages',
         component: MessagesComponent,
-        canActivate : [AuthGuardService]
+        canActivate: [AuthGuardService]
     },
     {
         path: 'patients',
         loadChildren: () => import('./patients/patients.module').then(m => m.PatientsModule)
     },
 
-     {
+    {
         path: 'sas-checks',
         component: SasChecksComponent,
-        canActivate : [AuthGuardService]
+        canActivate: [AuthGuardService]
     },
     // {
     //     path: 'access-denied',
@@ -69,7 +73,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {   onSameUrlNavigation: 'ignore' })],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'ignore' })],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -38,8 +38,8 @@ export class NavComponent {
   }
 
   LogOut(): void {
-    this.store.dispatch(new LogOut());
-  //  this.router.navigateByUrl('/login');
+   this.store.dispatch(new LogOut());
+  // this.router.navigateByUrl('/logout');
   }
 
   onWardChanged() {
