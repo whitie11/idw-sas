@@ -1,0 +1,23 @@
+.wrapper {
+    display: grid;
+    height: 90vh;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+  
+    grid-template-areas:   "logo message logoR";
+                     
+  }
+
+  .logo {
+      grid-area: logo;
+  }
+
+  .logoR {
+    grid-area: logoR;
+}
+
+  .message {
+      grid-area: message;
+  }
