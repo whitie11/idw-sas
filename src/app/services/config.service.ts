@@ -11,7 +11,9 @@ export class ConfigService {
 
   //  private baseUrl = 'http://sasdatamanager1-env.bm8hz53wy9.eu-west-2.elasticbeanstalk.com/';
 
-    private baseUrl = 'http://sasdatamanager-env.hesnzb2zru.eu-west-2.elasticbeanstalk.com/';
+   // private baseUrl = 'http://sasdatamanager-env.hesnzb2zru.eu-west-2.elasticbeanstalk.com/';
+
+    private baseUrl = 'https://sasdatamanager.azurewebsites.net/';
 
     private baseRegisterUrl = this.baseUrl + 'api/account/register';
 

@@ -7,7 +7,7 @@ import { User } from '../models/user';
 
 @Injectable()
 export class AuthService {
-  private BASE_URL = 'http://sasdatamanager-env.hesnzb2zru.eu-west-2.elasticbeanstalk.com/';
+  private BASE_URL = 'https://sasdatamanager.azurewebsites.net/';
 
   constructor(private http: HttpClient) {}
 
