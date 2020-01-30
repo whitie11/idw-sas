@@ -437,10 +437,17 @@ export class ObsComponent implements OnInit {
         type: 'scatter',
         data: {
           datasets: [{
+            data: this.locDataItem,
             label: 'Observation',
-            pointBackgroundColor: 'red',
-            pointRadius: 5,
-            data: this.locDataItem
+            pointBackgroundColor(context) {
+              const index = context.dataIndex;
+              const value = context.dataset.data[index];
+              if (value.status === 'Agitated' || value.status === 'Aggressive' || value.status === 'Secluded') {
+              return 'red';
+              } else if (value.status === 'Anxious') {
+                return 'blue'; } else { return 'green'; }
+          },
+            pointRadius: 5
           }]
         },
         options: {
