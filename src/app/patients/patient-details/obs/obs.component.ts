@@ -259,7 +259,7 @@ export class ObsComponent implements OnInit {
         data: {
           datasets: [{
             label: 'Observation',
-            pointBackgroundColor: 'red',
+            pointBackgroundColor: 'black',
             pointRadius: 5,
             data: this.statusDataItem
           }]

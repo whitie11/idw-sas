@@ -122,8 +122,20 @@
   </div>
 
   <!-- Location Chart goes here -->
-  <div [hidden]="!showLocChart">
-    <h4>Location Chart</h4>
-    <div class="placeholder" #placeholder2></div>
+  <div class="chart2" [hidden]="!showLocChart">
+    <div class="heading" [hidden]="!showLocChart"><h4>Location Chart</h4></div>
+    
+    <div class="placeholder" [hidden]="!showLocChart" #placeholder2></div>
+    <div class="legend" [hidden]="!showLocChart">
+      <ul style="list-style-type:disc;">
+        <li style="color:red">Secluded</li>
+        <li style="color:red">Aggressive</li>
+        <li style="color:red">Agitated</li>
+        <li style="color:blue">Anxious</li>
+        <li style="color:green">Euthymic</li>
+        <li style="color:green">Sleeping</li>
+        <li style="color:green">On Leave</li>
+      </ul>
+    </div>
   </div>
 </div>

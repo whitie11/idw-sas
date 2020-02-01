@@ -26,6 +26,23 @@ tr.mat-row, tr.mat-header-row {
   overflow: auto;
 }
 
-.placeholder {
- 
+.chart2{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+
+  grid-template-areas:   "heading heading"
+                         "chart legend";
 }
+
+.heading{
+  grid-area: heading;
+}
+.placeholder {
+  grid-area: chart;
+}
+.legend{
+  grid-area: legend;
+}
+
+
