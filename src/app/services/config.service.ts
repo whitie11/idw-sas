@@ -31,6 +31,8 @@ export class ConfigService {
 
     private obsRangeuUrl2 = this.baseUrl + 'api/observation/findbyrange2/';
 
+    private leavePtUrl = this.baseUrl + 'api/leave/leavePt/';
+
     constructor() { }
 
     getWardList() {
@@ -78,6 +80,10 @@ export class ConfigService {
 
     getObsRangeUrl2() {
         return this.obsRangeuUrl2;
+    }
+
+    getLeavePtUrl() {
+        return this.leavePtUrl;
     }
 
 }

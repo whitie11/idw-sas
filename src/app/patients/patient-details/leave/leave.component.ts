@@ -63,7 +63,7 @@ export class LeaveComponent implements OnInit {
   {
     LeaveId: 1,
     PatientId: 1,
-    Type: 'Leave type',
+    LeaveType: {Id: 1, Text: 'type-text', Code: 'type-code'},
     Description: 'What they are wearing!',
     IsCurrent: false,
     TimeOut: null,
