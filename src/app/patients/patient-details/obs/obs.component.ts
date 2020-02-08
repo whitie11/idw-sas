@@ -134,9 +134,9 @@ export class ObsComponent implements OnInit {
         // this.dataSource.sort = this.sort2;
         // this.table2.dataSource = this.dataSource;
         this.setChartData(o);
-        const test = this.createChart();
+        this.createChart();
         this.setLocChartData(o);
-        const test2 = this.createLocChart();
+        this.createLocChart();
       });
   }
 

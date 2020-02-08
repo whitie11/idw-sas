@@ -1,4 +1,4 @@
-import { LeaveReg } from './LeaveReg';
+import { LeaveReg } from './leaveReg';
 
 export interface Patient {
 PatientId: number;

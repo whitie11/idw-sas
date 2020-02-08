@@ -31,7 +31,9 @@ export class ConfigService {
 
     private obsRangeuUrl2 = this.baseUrl + 'api/observation/findbyrange2/';
 
-    private leavePtUrl = this.baseUrl + 'api/leave/leavePt/';
+    private leavePtUrl = this.baseUrl + 'api/leave/getleavesPt/';
+
+    private leaveRangeUrl2 = this.baseUrl + 'api/leave/findbyrange2/';
 
     constructor() { }
 
@@ -84,6 +86,10 @@ export class ConfigService {
 
     getLeavePtUrl() {
         return this.leavePtUrl;
+    }
+
+    getLeaveRangeUrl2() {
+        return this.leaveRangeUrl2;
     }
 
 }

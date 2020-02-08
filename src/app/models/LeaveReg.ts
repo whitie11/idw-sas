@@ -14,3 +14,9 @@ export interface LeaveType {
    Code: string;
    Text: string;
 }
+
+export interface LeavePayload {
+    patientId: number;
+    leaveStart: Date;
+    leaveEnd: Date;
+}

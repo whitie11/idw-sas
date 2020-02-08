@@ -19,7 +19,7 @@ export class ObsEffects {
   constructor(private actions: Actions, private obsService: ObservationService) { }
 
   @Effect()
-  LoadPts: Observable<any> = this.actions
+  LoadObs: Observable<any> = this.actions
   .pipe(ofType(ObsActionTypes.LOAD_OBS))
     .pipe(
       map((action: LoadObs) => action.payload),
