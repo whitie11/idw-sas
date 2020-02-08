@@ -1,0 +1,8 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/7e0fee37-f890-4493-82e1-4693eac39f9c/resourceGroups/SASDataManager20200119054642ResourceGroup/providers/Microsoft.Web/sites/SASDesktop",
+    "appService.deploySubpath": "dist/sas-v2",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ]
+}
