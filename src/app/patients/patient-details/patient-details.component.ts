@@ -84,7 +84,7 @@ export class PatientDetailsComponent implements OnInit {
     }
 
     const x = this.selectedPatient.Leave.IsCurrent;
-    return true;
+    return x;
   }
 
 }
